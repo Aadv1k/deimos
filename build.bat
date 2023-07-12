@@ -9,4 +9,4 @@ SET SRCS=main.c image.c .\filters\blur.c
 
 %CC% %CFLAGS% %SRCS% -o bin/cv.exe
 
-.\bin\output.exe
+.\bin\cv.exe
