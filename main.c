@@ -7,6 +7,7 @@
 #include "./filters/blur.h"
 #include "./filters/grayscale.h"
 #include "./filters/sharpen.h"
+#include "./filters/median.h"
 
 void usage(const char * caller) {
   printf("Usage:\n");
@@ -16,6 +17,7 @@ void usage(const char * caller) {
   printf("\t%s --gray input.png output.png\n", caller);
   printf("Options:\n");
   printf("\t--blur        apply gaussian blur to the image\n");
+  printf("\t--median      apply median filter to the image\n");
   printf("\t--gray        convert image to grayscale\n");
   printf("\t--sharpen     sharpen image via an unsharp mask\n");
   printf("\t--strength    the strength for the sharpening (default 0.5)\n");
@@ -33,6 +35,7 @@ int main(int argc, char ** argv) {
   int enableBlur = 0;
   int enableGrayscale = 0;
   int enableSharpen = 0;
+  int enableMedian = 0;
   int cmdc = 0;
   float blurSigma  = 1.0;
   float sharpStrength = 0.5;
@@ -42,6 +45,9 @@ int main(int argc, char ** argv) {
 
         if (strcmp(current, "--blur") == 0) {
             enableBlur = 1;
+            cmdc++;
+        } else if (strcmp(current, "--median") == 0) {
+            enableMedian = 1;
             cmdc++;
         } else if (strcmp(current, "--sharpen") == 0) {
             enableSharpen = 1;
@@ -86,6 +92,12 @@ int main(int argc, char ** argv) {
   if (enableGrayscale)  {
     cv_apply_grayscale(&img);
     printf("Info: applied grayscale\n");
+  }
+
+
+  if (enableMedian)  {
+    cv_apply_median_filter(&img, 5);
+    printf("Info: applied median filter\n");
   }
 
   if (enableSharpen)  {
