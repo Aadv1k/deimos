@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "./filters/blur.h"
+#include "./filters/grayscale.h"
 #include "./image.h"
 
 void usage() {
@@ -11,6 +12,7 @@ void usage() {
   printf("\tcv.c --blur --sigma 3.4 input.png output.png\n");
   printf("Options:\n");
   printf("\t--blur     apply gaussian blur to the image\n");
+  printf("\t--gray     convert image to grayscale\n");
   printf("\t--sigma    specify the sigma for the blur (default 1.0)\n");
 }
 
@@ -21,6 +23,7 @@ int main(int argc, char ** argv) {
   }
 
   int enableBlur = 0;
+  int enableGrayscale = 0;
   int cmdc = 0;
   float blurSigma  = 1.0;
 
@@ -30,7 +33,10 @@ int main(int argc, char ** argv) {
         if (strcmp(current, "--blur") == 0) {
             enableBlur = 1;
             cmdc++;
-        } else if (strcmp(current, "--sigma") == 0) {
+        } else if (strcmp(current, "--gray") == 0) {
+            enableGrayscale = 1;
+            cmdc++;
+              } else if (strcmp(current, "--sigma") == 0) {
             cmdc+=2;
 
             if (i + 1 < argc) {
@@ -57,6 +63,12 @@ int main(int argc, char ** argv) {
   if (enableBlur)  {
     cv_apply_gaussian_blur(&img, blurSigma);
     printf("Info: applied gaussian blur of intensity %.2f\n", blurSigma);
+  }
+
+
+  if (enableGrayscale)  {
+    cv_apply_grayscale(&img);
+    printf("Info: applied grayscale\n");
   }
 
   cv_write_image(&img, output_path);
