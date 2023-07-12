@@ -15,9 +15,11 @@ void usage(const char * caller) {
   printf("\t%s --blur --sigma 3.4 input.png output.png\n", caller);
   printf("\t%s --gray input.png output.png\n", caller);
   printf("Options:\n");
-  printf("\t--blur     apply gaussian blur to the image\n");
-  printf("\t--gray     convert image to grayscale\n");
-  printf("\t--sigma    specify the sigma for the blur (default 1.0)\n");
+  printf("\t--blur        apply gaussian blur to the image\n");
+  printf("\t--gray        convert image to grayscale\n");
+  printf("\t--sharpen     sharpen image via an unsharp mask\n");
+  printf("\t--strength    the strength for the sharpening (default 0.5)\n");
+  printf("\t--radius      specify the radius for the blur (default 1.0)\n");
 }
 
 int main(int argc, char ** argv) {
@@ -33,6 +35,7 @@ int main(int argc, char ** argv) {
   int enableSharpen = 0;
   int cmdc = 0;
   float blurSigma  = 1.0;
+  float sharpStrength = 0.5;
 
     for (int i = 1; i < argc; i++) {
         const char* current = argv[i];
@@ -46,17 +49,27 @@ int main(int argc, char ** argv) {
         } else if (strcmp(current, "--gray") == 0) {
             enableGrayscale = 1;
             cmdc++;
-              } else if (strcmp(current, "--sigma") == 0) {
+          } else if (strcmp(current, "--radius") == 0) {
             cmdc+=2;
 
             if (i + 1 < argc) {
                 blurSigma = atof(argv[i + 1]);
                 i++;
             } else {
-                fprintf(stderr, "Error: --sigma requires a value.\n");
+                fprintf(stderr, "Error: --radius requires a value.\n");
                 exit(1);
             }
-        }
+        } else if (strcmp(current, "--strength") == 0) {
+            cmdc+=2;
+
+            if (i + 1 < argc) {
+                sharpStrength = atof(argv[i + 1]);
+                i++;
+            } else {
+                fprintf(stderr, "Error: --strength requires a value.\n");
+                exit(1);
+            }
+    }
   }
 
   if (argc - cmdc <= 2) {
@@ -76,7 +89,7 @@ int main(int argc, char ** argv) {
   }
 
   if (enableSharpen)  {
-    cv_apply_sharpening(&img, 0.5);
+    cv_apply_sharpening(&img, sharpStrength);
     printf("Info: applied sharpen\n");
   }
 
