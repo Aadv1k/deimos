@@ -4,7 +4,7 @@ Experimental computer vision library in C
 
 ## Build (windows)
 
-```shell
+```console
 $ .\build
 ```
 
@@ -14,14 +14,14 @@ $ .\build
 > The filters are un-optimized, they work best on smaller images
 
 
-```shell
+```console
 $ .\cv.exe --gray ..\data\gex.png .\output.png
 $ .\cv.exe --gray --blur --sigma 5 ..\data\gex.png .\output.png
 ```
 
 ## Usage
 
-```shell
+```console
 $ ./cv.exe
 Usage:
         .\cv.exe <args> input output
