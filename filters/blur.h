@@ -6,6 +6,6 @@
 
 #include "../image.h"
 
-void cv_apply_gaussian_blur(Image *image, float sigma);
+void cv_apply_gaussian_blur(Image *image, float sigma, int size);
 
 #endif

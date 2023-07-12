@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
+#include "./image.h"
+
 #include "./filters/blur.h"
 #include "./filters/grayscale.h"
-#include "./image.h"
+#include "./filters/sharpen.h"
 
 void usage(const char * caller) {
   printf("Usage:\n");
@@ -27,6 +30,7 @@ int main(int argc, char ** argv) {
 
   int enableBlur = 0;
   int enableGrayscale = 0;
+  int enableSharpen = 0;
   int cmdc = 0;
   float blurSigma  = 1.0;
 
@@ -35,6 +39,9 @@ int main(int argc, char ** argv) {
 
         if (strcmp(current, "--blur") == 0) {
             enableBlur = 1;
+            cmdc++;
+        } else if (strcmp(current, "--sharpen") == 0) {
+            enableSharpen = 1;
             cmdc++;
         } else if (strcmp(current, "--gray") == 0) {
             enableGrayscale = 1;
@@ -68,9 +75,14 @@ int main(int argc, char ** argv) {
     printf("Info: applied grayscale\n");
   }
 
+  if (enableSharpen)  {
+    cv_apply_sharpening(&img, 0.5);
+    printf("Info: applied sharpen\n");
+  }
+
 
   if (enableBlur)  {
-    cv_apply_gaussian_blur(&img, blurSigma);
+    cv_apply_gaussian_blur(&img, blurSigma, 9);
     printf("Info: applied gaussian blur of intensity %.2f\n", blurSigma);
   }
 

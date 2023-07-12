@@ -1,6 +1,7 @@
 #include "blur.h"
 #include <stdlib.h>
 #include <math.h>
+#include <assert.h>
 
 void cv_compute_gaussian_kernel(float *** kernel, int sigma, int size) {
   float sum = 0.0;
@@ -22,8 +23,10 @@ void cv_compute_gaussian_kernel(float *** kernel, int sigma, int size) {
   }
 }
 
-void cv_apply_gaussian_blur(Image *image, float sigma) {
-  int SIZE = 15;
+void cv_apply_gaussian_blur(Image *image, float sigma, int size) {
+  assert(size > 0 && size % 2 != 0 && "Kernel size can't be even");
+
+  int SIZE = size;
   float **kernel;
 
   cv_compute_gaussian_kernel(&kernel, sigma, SIZE);
