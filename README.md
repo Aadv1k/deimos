@@ -13,10 +13,13 @@ $ .\build
 ```shell
 $ ./cv.exe
 Usage:
-        cv.c <args> input output
+        .\cv.exe <args> input output
 Examples:
-        cv.c --blur --sigma 3.4 input.png output.png
+        .\cv.exe --blur --sigma 3.4 input.png output.png
+        .\cv.exe --gray input.png output.png
 Options:
         --blur     apply gaussian blur to the image
+        --gray     convert image to grayscale
         --sigma    specify the sigma for the blur (default 1.0)
+
 ```

@@ -5,11 +5,12 @@
 #include "./filters/grayscale.h"
 #include "./image.h"
 
-void usage() {
+void usage(const char * caller) {
   printf("Usage:\n");
-  printf("\tcv.c <args> input output\n");
+  printf("\t%s <args> input output\n", caller);
   printf("Examples:\n");
-  printf("\tcv.c --blur --sigma 3.4 input.png output.png\n");
+  printf("\t%s --blur --sigma 3.4 input.png output.png\n", caller);
+  printf("\t%s --gray input.png output.png\n", caller);
   printf("Options:\n");
   printf("\t--blur     apply gaussian blur to the image\n");
   printf("\t--gray     convert image to grayscale\n");
@@ -17,8 +18,10 @@ void usage() {
 }
 
 int main(int argc, char ** argv) {
+    const char * caller = argv[0];
+
   if (argc == 1) {
-    usage();
+    usage(caller);
     exit(1);
   }
 
@@ -50,7 +53,7 @@ int main(int argc, char ** argv) {
   }
 
   if (argc - cmdc <= 2) {
-    usage();
+    usage(caller);
     exit(1);
   }
 
