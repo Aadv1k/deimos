@@ -63,16 +63,17 @@ int main(int argc, char ** argv) {
   Image img = { .path = input_path };
   cv_load_image(&img);
 
+  if (enableGrayscale)  {
+    cv_apply_grayscale(&img);
+    printf("Info: applied grayscale\n");
+  }
+
+
   if (enableBlur)  {
     cv_apply_gaussian_blur(&img, blurSigma);
     printf("Info: applied gaussian blur of intensity %.2f\n", blurSigma);
   }
 
-
-  if (enableGrayscale)  {
-    cv_apply_grayscale(&img);
-    printf("Info: applied grayscale\n");
-  }
 
   cv_write_image(&img, output_path);
 

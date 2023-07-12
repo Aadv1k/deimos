@@ -23,7 +23,7 @@ void cv_compute_gaussian_kernel(float *** kernel, int sigma, int size) {
 }
 
 void cv_apply_gaussian_blur(Image *image, float sigma) {
-  int SIZE = 9;
+  int SIZE = 15;
   float **kernel;
 
   cv_compute_gaussian_kernel(&kernel, sigma, SIZE);

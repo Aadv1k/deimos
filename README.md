@@ -8,6 +8,17 @@ Experimental computer vision library in C
 $ .\build
 ```
 
+## Example
+
+> **Note**
+> The filters are un-optimized, they work best on smaller images
+
+
+```shell
+$ .\cv.exe --gray ..\data\gex.png .\output.png
+$ .\cv.exe --gray --blur --sigma 5 ..\data\gex.png .\output.png
+```
+
 ## Usage
 
 ```shell
@@ -23,3 +34,8 @@ Options:
         --sigma    specify the sigma for the blur (default 1.0)
 
 ```
+
+## Credits
+
+gex.png: https://www.ign.com/games/gex-enter-the-gecko-gbc/articles
+
