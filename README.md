@@ -19,6 +19,12 @@ Experimental computer vision library in C
 $ .\build
 ```
 
+## Build (unix)
+
+```console
+$ ./build
+```
+
 ## Example
 
 > **Note**
