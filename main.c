@@ -8,6 +8,7 @@
 #include "./filters/grayscale.h"
 #include "./filters/median.h"
 #include "./filters/sharpen.h"
+#include "./filters/bilateral.h"
 
 void usage(const char *caller) {
   printf("Usage:\n");
@@ -22,7 +23,7 @@ void usage(const char *caller) {
   printf("\t--gray        convert image to grayscale\n");
   printf("\t--sharpen     sharpen image via an unsharp mask\n");
   printf("\t--strength    the strength for the sharpening (default 0.5)\n");
-  printf("\t--radius      specify the radius for the blur (default 1.0)\n");
+  printf("\t--radius      specify the radius for kernel based masks (default 1.0)\n");
 }
 
 int main(int argc, char **argv) {
@@ -37,6 +38,8 @@ int main(int argc, char **argv) {
   int enableGrayscale = 0;
   int enableSharpen = 0;
   int enableMedian = 0;
+  int enableBilateral = 0;
+
   int cmdc = 0;
   float blurSigma = 1.0;
   float sharpStrength = 0.5;
@@ -47,9 +50,9 @@ int main(int argc, char **argv) {
     if (strcmp(current, "--blur") == 0) {
       enableBlur = 1;
       cmdc++;
-    } else if (strcmp(current, "--help") == 0) {
-        usage(caller);
-        exit(0);
+    } else if (strcmp(current, "--bilateral") == 0)  {
+      enableBilateral = 1;
+      cmdc++;
     } else if (strcmp(current, "--median") == 0) {
       enableMedian = 1;
       cmdc++;
@@ -79,6 +82,9 @@ int main(int argc, char **argv) {
         fprintf(stderr, "Error: --strength requires a value.\n");
         exit(1);
       }
+    } else {
+      usage(caller);
+      exit(0);
     }
   }
 
@@ -98,8 +104,13 @@ int main(int argc, char **argv) {
     printf("Info: applied grayscale\n");
   }
 
+  if (enableBilateral) {
+    cv_apply_bilateral_filter(&img, blurSigma);
+    printf("Info: applied bilateral filter\n");
+  }
+
   if (enableMedian) {
-    cv_apply_median_filter(&img, 5);
+    cv_apply_median_filter(&img, blurSigma);
     printf("Info: applied median filter\n");
   }
 

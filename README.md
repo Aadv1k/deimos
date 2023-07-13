@@ -3,10 +3,14 @@
 Experimental computer vision library in C
 
 - Filters
-  - Gaussian blur
-  - Greyscale
-  - Unsharp mask (sharpening)
-  - Median filter (smoothing)
+  - [x] Gaussian blur
+  - [x] Greyscale
+  - [x] Unsharp mask (sharpening)
+  - [x] Median filter (smoothing)
+  - [ ] Bilateral Filter
+  - [ ] Box Filter (Mean Filter)
+  - [ ] Laplacian Filter
+  - [ ] Sobel Filter
 
 ## Build (windows)
 
