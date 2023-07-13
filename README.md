@@ -7,7 +7,7 @@ Experimental computer vision library in C
   - [x] Greyscale
   - [x] Unsharp mask (sharpening)
   - [x] Median filter (smoothing)
-  - [ ] Bilateral Filter
+  - [x] Bilateral Filter
   - [ ] Box Filter (Mean Filter)
   - [ ] Laplacian Filter
   - [ ] Sobel Filter
