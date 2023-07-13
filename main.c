@@ -17,13 +17,14 @@ void usage(const char *caller) {
   printf("\t%s --blur --sigma 3.4 input.png output.png\n", caller);
   printf("\t%s --gray input.png output.png\n", caller);
   printf("Options:\n");
-  printf("\t--help        print this help message\n");
-  printf("\t--blur        apply gaussian blur to the image\n");
-  printf("\t--median      apply median filter to the image\n");
-  printf("\t--gray        convert image to grayscale\n");
-  printf("\t--sharpen     sharpen image via an unsharp mask\n");
-  printf("\t--strength    the strength for the sharpening (default 0.5)\n");
-  printf("\t--radius      specify the radius for kernel based masks (default 1.0)\n");
+  printf("\t--help           print this help message\n");
+  printf("\t--blur           apply gaussian blur to the image\n");
+  printf("\t--median         apply median filter to the image\n");
+  printf("\t--bilateral      apply bilateral filter to the image\n");
+  printf("\t--gray           convert image to grayscale\n");
+  printf("\t--sharpen        sharpen image via an unsharp mask\n");
+  printf("\t--strength       the strength for the sharpening (default 0.5)\n");
+  printf("\t--radius         specify the radius for kernel based masks (default 1.0)\n");
 }
 
 int main(int argc, char **argv) {
@@ -64,7 +65,6 @@ int main(int argc, char **argv) {
       cmdc++;
     } else if (strcmp(current, "--radius") == 0) {
       cmdc += 2;
-
       if (i + 1 < argc) {
         blurSigma = atof(argv[i + 1]);
         i++;
@@ -82,7 +82,7 @@ int main(int argc, char **argv) {
         fprintf(stderr, "Error: --strength requires a value.\n");
         exit(1);
       }
-    } else {
+    } else if (strcmp(current, "--help") == 0) {
       usage(caller);
       exit(0);
     }

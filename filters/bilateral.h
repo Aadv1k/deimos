@@ -3,6 +3,6 @@
 
 #include "../image.h"
 
-void cv_apply_bilateral_filter(Image* img, float sigma, int size);
+void cv_apply_bilateral_filter(Image* img, float sigma);
 
 #endif 
