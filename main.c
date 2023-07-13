@@ -10,6 +10,16 @@
 #include "./filters/sharpen.h"
 #include "./filters/bilateral.h"
 
+#ifdef _WIN32
+    #define CV_WARN(...) printf("\033[33m[WARNING] "); printf(__VA_ARGS__); printf("\033[0m\n")
+    #define CV_INFO(...) printf("\033[36m[INFO] "); printf(__VA_ARGS__); printf("\033[0m\n")
+    #define CV_ERROR(...) printf("\033[31m[ERROR] "); printf(__VA_ARGS__); printf("\033[0m\n")
+#else
+    #define CV_WARN(...) printf("\033[33m[WARNING] "); printf(__VA_ARGS__); printf("\033[0m\n")
+    #define CV_INFO(...) printf("\033[36m[INFO] "); printf(__VA_ARGS__); printf("\033[0m\n")
+    #define CV_ERROR(...) printf("\033[31m[ERROR] "); printf(__VA_ARGS__); printf("\033[0m\n")
+#endif
+
 void usage(const char *caller) {
   printf("Usage:\n");
   printf("\t%s <args> input output\n", caller);
@@ -100,8 +110,8 @@ int main(int argc, char **argv) {
   cv_load_image(&img);
 
   if (enableGrayscale) {
+    CV_INFO("converting image to grayscale");
     cv_apply_grayscale(&img);
-    printf("Info: applied grayscale\n");
   }
 
   if (enableBilateral) {
@@ -110,19 +120,19 @@ int main(int argc, char **argv) {
   }
 
   if (enableMedian) {
-    cv_apply_median_filter(&img, blurSigma);
-    printf("Info: applied median filter\n");
+    CV_INFO("applying median filter of kernel size %d", (int)blurSigma);
+    cv_apply_median_filter(&img, (int)blurSigma);
   }
 
   if (enableSharpen) {
     int kernSize = ceil(sharpStrength) * 2 + 1;
-    printf("Info: applying sharpening of strength %.2f, kernel size %d\n", sharpStrength, kernSize);
+    CV_INFO("applying sharpening of strength %.2f, kernel size %d", sharpStrength, kernSize);
     cv_apply_sharpening(&img, sharpStrength, kernSize);
   }
 
   if (enableBlur) {
     int kernSize = ceil(blurSigma*2 + 1);
-    printf("Info: applying gaussian blur of intensity %.2f, kernel size %d\n", blurSigma, kernSize);
+    CV_INFO("applying gaussian blur of intensity %.2f, kernel size %d", blurSigma, kernSize);
     cv_apply_gaussian_blur(&img, blurSigma, kernSize);
   }
 
