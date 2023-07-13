@@ -115,13 +115,15 @@ int main(int argc, char **argv) {
   }
 
   if (enableSharpen) {
-    cv_apply_sharpening(&img, sharpStrength);
-    printf("Info: applied sharpen\n");
+    int kernSize = ceil(sharpStrength) * 2 + 1;
+    printf("Info: applying sharpening of strength %.2f, kernel size %d\n", sharpStrength, kernSize);
+    cv_apply_sharpening(&img, sharpStrength, kernSize);
   }
 
   if (enableBlur) {
-    cv_apply_gaussian_blur(&img, blurSigma, 9);
-    printf("Info: applied gaussian blur of intensity %.2f\n", blurSigma);
+    int kernSize = ceil(blurSigma*2 + 1);
+    printf("Info: applying gaussian blur of intensity %.2f, kernel size %d\n", blurSigma, kernSize);
+    cv_apply_gaussian_blur(&img, blurSigma, kernSize);
   }
 
   cv_write_image(&img, output_path);

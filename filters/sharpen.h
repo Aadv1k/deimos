@@ -3,6 +3,6 @@
 
 #include "../image.h"
 
-void cv_apply_sharpening(Image * img, float strength);
+void cv_apply_sharpening(Image * img, float strength, int kernSize);
 
 #endif

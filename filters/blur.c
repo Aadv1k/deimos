@@ -2,23 +2,16 @@
 #include <stdlib.h>
 #include <math.h>
 #include <assert.h>
+#include <stdio.h>
+
 
 void cv_compute_gaussian_kernel(float *** kernel, int sigma, int size) {
-  float sum = 0.0;
-
   *kernel = (float**)malloc(sizeof(float*) * size);
   for (int i = 0; i < size; i++) {
     (*kernel)[i] = (float*)malloc(sizeof(float) * size);
     for (int j = 0; j < size; j++) {
-        int y =  i - size / 2, x = j - size / 2;
+        float y =  i - size / 2, x = j - size / 2;
         (*kernel)[i][j] = (1/(2 * M_PI * pow(sigma, 2))) * exp(-(x * x + y * y)/(2*pow(sigma, 2)));
-        sum += (*kernel)[i][j];
-    }
-  }
-
-  for (int i = 0; i < size; i++) {
-    for (int j = 0; j < size; j++) {
-        (*kernel)[i][j] /= sum;
     }
   }
 }
@@ -37,7 +30,7 @@ void cv_apply_gaussian_blur(Image *image, float sigma, int size) {
 
   for (int i = 0; i < image->height; i++) {
     for (int j = 0; j < image->width; j++) {
-      for (int c = 0; c < image->channels; c++) { // Iterate over the channels
+      for (int c = 0; c < image->channels; c++) {
         float sum = 0.0, sumWeight = 0.0;
 
         for (int k = 0; k < SIZE; k++) {
