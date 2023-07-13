@@ -115,8 +115,9 @@ int main(int argc, char **argv) {
   }
 
   if (enableBilateral) {
-    cv_apply_bilateral_filter(&img, blurSigma);
-    printf("Info: applied bilateral filter\n");
+    int kernSize = floor(blurSigma / 2.5);
+    CV_INFO("applying bilateral filter of strength %.2f, kernel size %d", blurSigma, kernSize);
+    cv_apply_bilateral_filter(&img, blurSigma, kernSize);
   }
 
   if (enableMedian) {

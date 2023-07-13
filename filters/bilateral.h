@@ -3,6 +3,6 @@
 
 #include "../image.h"
 
-void cv_apply_bilateral_filter(Image* img, float sigma);
+void cv_apply_bilateral_filter(Image* img, float sigma, int kernSize);
 
 #endif 
