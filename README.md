@@ -12,7 +12,7 @@ Experimental computer vision library in C
   - [x] Laplacian Filter (Difference of Gaussian): Higher the kernel size thicker the edges. Higher the sigma, less noisier the image.
 
 
-> **NOTE**
+> **Note**
 > Almost all the functions of this library are arbitary and based on whatever came up on searching "image filtering algoritms"
 
 
