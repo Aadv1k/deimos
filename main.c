@@ -24,8 +24,10 @@ void usage(const char *caller) {
   printf("Usage:\n");
   printf("\t%s <args> input output\n", caller);
   printf("Examples:\n");
-  printf("\t%s --blur --sigma 3.4 input.png output.png\n", caller);
+  printf("\t%s --blur --sigma 3.4 --kernel 5 input.png output.png\n", caller);
   printf("\t%s --gray input.png output.png\n", caller);
+  printf("\t%s --median --kernel 3 input.png output.png\n", caller);
+  printf("\t%s --sharpen --sigma 0.6 --kernel 3 input.png output.png\n", caller);
   printf("Options:\n");
   printf("\t--help           print this help message\n");
   printf("\t--blur           apply gaussian blur to the image\n");
@@ -33,8 +35,8 @@ void usage(const char *caller) {
   printf("\t--bilateral      apply bilateral filter to the image\n");
   printf("\t--gray           convert image to grayscale\n");
   printf("\t--sharpen        sharpen image via an unsharp mask\n");
-  printf("\t--strength       the strength for the sharpening (default 0.5)\n");
-  printf("\t--radius         specify the radius for kernel based masks (default 1.0)\n");
+  printf("\t--sigma          specify the sigma for the convolutions\n");
+  printf("\t--radius         define the kernel size for convolutions (if applicable)\n");
 }
 
 int main(int argc, char **argv) {
@@ -52,8 +54,9 @@ int main(int argc, char **argv) {
   int enableBilateral = 0;
 
   int cmdc = 0;
-  float blurSigma = 1.0;
-  float sharpStrength = 0.5;
+
+  float sigma = 1.0;
+  int kernelSize = 3;
 
   for (int i = 1; i < argc; i++) {
     const char *current = argv[i];
@@ -73,20 +76,20 @@ int main(int argc, char **argv) {
     } else if (strcmp(current, "--gray") == 0) {
       enableGrayscale = 1;
       cmdc++;
-    } else if (strcmp(current, "--radius") == 0) {
+    } else if (strcmp(current, "--sigma") == 0) {
       cmdc += 2;
       if (i + 1 < argc) {
-        blurSigma = atof(argv[i + 1]);
+        sigma = atof(argv[i + 1]);
         i++;
       } else {
         fprintf(stderr, "Error: --radius requires a value.\n");
         exit(1);
       }
-    } else if (strcmp(current, "--strength") == 0) {
+    } else if (strcmp(current, "--kernel") == 0) {
       cmdc += 2;
 
       if (i + 1 < argc) {
-        sharpStrength = atof(argv[i + 1]);
+        kernelSize = atoi(argv[i + 1]);
         i++;
       } else {
         fprintf(stderr, "Error: --strength requires a value.\n");
@@ -115,26 +118,26 @@ int main(int argc, char **argv) {
   }
 
   if (enableBilateral) {
-    int kernSize = floor(blurSigma / 2.5);
-    CV_INFO("applying bilateral filter of strength %.2f, kernel size %d", blurSigma, kernSize);
-    cv_apply_bilateral_filter(&img, blurSigma, kernSize);
+    //int kernSize = floor(sigma / 2.5);
+    CV_INFO("applying bilateral filter of strength %.2f, kernel size %d", sigma, kernelSize);
+    cv_apply_bilateral_filter(&img, sigma, kernelSize);
   }
 
   if (enableMedian) {
-    CV_INFO("applying median filter of kernel size %d", (int)blurSigma);
-    cv_apply_median_filter(&img, (int)blurSigma);
+    CV_INFO("applying median filter of kernel size %d", kernelSize);
+    cv_apply_median_filter(&img, (int)sigma);
   }
 
   if (enableSharpen) {
-    int kernSize = ceil(sharpStrength) * 2 + 1;
-    CV_INFO("applying sharpening of strength %.2f, kernel size %d", sharpStrength, kernSize);
-    cv_apply_sharpening(&img, sharpStrength, kernSize);
+    //int kernelSize = ceil(sharpStrength) * 2 + 1;
+    CV_INFO("applying sharpening of strength %.2f, kernel size %d", sigma, kernelSize);
+    cv_apply_sharpening(&img, sigma, kernelSize);
   }
 
   if (enableBlur) {
-    int kernSize = ceil(blurSigma*2 + 1);
-    CV_INFO("applying gaussian blur of intensity %.2f, kernel size %d", blurSigma, kernSize);
-    cv_apply_gaussian_blur(&img, blurSigma, kernSize);
+    //int kernelSize = ceil(sigma*2 + 1);
+    CV_INFO("applying gaussian blur of intensity %.2f, kernel size %d", sigma, kernelSize);
+    cv_apply_gaussian_blur(&img, sigma, kernelSize);
   }
 
   cv_write_image(&img, output_path);

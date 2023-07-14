@@ -16,13 +16,13 @@ Experimental computer vision library in C
 ## Build (windows)
 
 ```console
-$ .\build
+$ .\build.bat
 ```
 
 ## Build (unix)
 
 ```console
-$ ./build
+$ ./build.sh
 ```
 
 ## Example
@@ -31,8 +31,9 @@ $ ./build
 > The filters are un-optimized, they work best on smaller images
 
 ```console
-$ .\cv.exe --gray ..\data\gex.png .\output.png
-$ .\cv.exe --gray --blur --sigma 5 ..\data\gex.png .\output.png
+$ .\cv --gray ..\data\gex.png .\output.png
+$ .\cv --sharpen --sigma 3 ..\data\gex.png .\output.png
+$ .\cv --gray --blur --kernel 9 --sigma 5 ..\data\gex.png .\output.png
 ```
 
 ## Usage
@@ -40,17 +41,21 @@ $ .\cv.exe --gray --blur --sigma 5 ..\data\gex.png .\output.png
 ```console
 $ ./cv.exe
 Usage:
-        .\cv.exe <args> input output
+        cv.exe <args> input output
 Examples:
-        .\cv.exe --blur --sigma 3.4 input.png output.png
-        .\cv.exe --gray input.png output.png
+        cv.exe --blur --sigma 3.4 --kernel 5 input.png output.png
+        cv.exe --gray input.png output.png
+        cv.exe --median --kernel 3 input.png output.png
+        cv.exe --sharpen --sigma 0.6 --kernel 3 input.png output.png
 Options:
-        --blur        apply gaussian blur to the image
-        --median      apply median filter to the image
-        --gray        convert image to grayscale
-        --sharpen     sharpen image via an unsharp mask
-        --strength    the strength for the sharpening (default 0.5)
-        --radius      specify the radius for the blur (default 1.0)
+        --help           print this help message
+        --blur           apply gaussian blur to the image
+        --median         apply median filter to the image
+        --bilateral      apply bilateral filter to the image
+        --gray           convert image to grayscale
+        --sharpen        sharpen image via an unsharp mask
+        --sigma          specify the sigma for the convolutions
+        --radius         define the kernel size for convolutions (if applicable)
 ```
 
 ## Credits
