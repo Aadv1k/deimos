@@ -130,8 +130,8 @@ int main(int argc, char **argv) {
   }
 
   if (enableLaplacian) {
-    CV_INFO("applying Laplacian filter of kernel size %d", kernelSize);
-    cv_apply_laplacian_filter(&img, kernelSize);
+    CV_INFO("applying Laplacian filter of strength %.2f, kernel size %d", sigma, kernelSize);
+    cv_apply_laplacian_filter(&img, sigma, kernelSize);
   }
 
   if (enableBilateral) {

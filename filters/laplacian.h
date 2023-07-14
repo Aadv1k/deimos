@@ -3,6 +3,6 @@
 
 #include "../image.h"
 
-void cv_apply_laplacian_filter(Image * img, int kernSize);
+void cv_apply_laplacian_filter(Image * img, float sigma, int kernSize);
 
 #endif
