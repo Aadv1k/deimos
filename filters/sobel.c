@@ -75,7 +75,7 @@ void cv_apply_sobel_filter(Image* img) {
 
   for (int i = 1; i < height - 1; i++) {
     for (int j = 1; j < width - 1; j++) {
-      img->bytes[i * width + j] = compute_sobel_from_pixel_5x5(img, j, i);
+      img->bytes[i * width + j] = compute_sobel_from_pixel_3x3(img, j, i);
     }
   }
 }
