@@ -149,7 +149,7 @@ int main(int argc, char **argv) {
 
   if (enableMedian) {
     CV_INFO("applying median filter of kernel size %d", kernelSize);
-    cv_apply_median_filter(&img, (int)sigma);
+    cv_apply_median_filter(&img, kernelSize);
   }
 
   if (enableSharpen) {
