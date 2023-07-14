@@ -5,13 +5,16 @@ Experimental computer vision library in C
 I am trying to distill my knowledge into a [set of notes for future reference](./docs/basic.md). You may find them useful as a simple guide (any critisims/suggestions would be appreciated)
 
 - Filters
-  - [x] Gaussian blur: higher kernel will lead to more blurring, at the cost of speed
-  - [x] Greyscale: convert image from RGB to 0..255 scale
-  - [x] Unsharp mask: emphasises the edges, higher sigma will make edges more pronounced at the cost of pixel tearing
-  - [x] Median filter: higher sigma will give a smoother image 
-  - [x] Bilateral Filter: similar to Median but more performant
-  - [x] Box Filter: higher kernel size will give a more blurred image 
-  - [x] Laplacian Filter (Difference of Gaussian): higher the kernel size thicker the edges. Higher the sigma, less noisier the image.
+  - Gaussian blur: higher kernel will lead to more blurring, at the cost of speed
+  - Greyscale: convert image from RGB to 0..255 scale
+  - Unsharp mask: emphasises the edges, higher sigma will make edges more pronounced at the cost of pixel tearing
+  - Median filter: higher sigma will give a smoother image 
+  - Bilateral Filter: similar to Median but more performant
+  - Box Filter: higher kernel size will give a more blurred image 
+  - Laplacian Filter (Difference of Gaussian): higher the kernel size thicker the edges. 
+    Higher the sigma, less noisier the image.
+  - Sobel operator: creates an image which emphasizes the edge, somewhat similar to Laplacian Filter
+    but computationally better
 
 
 > **Note**
@@ -56,6 +59,7 @@ Options:
         --help           print this help message
         --blur           apply gaussian blur to the image
         --median         apply median filter to the image
+        --sobel          apply sobel filter to the image
         --bilateral      apply bilateral filter to the image
         --box            apply box filter onto the image
         --laplacian      apply laplacian filter onto the image

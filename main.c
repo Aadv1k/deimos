@@ -27,7 +27,7 @@ void usage(const char *caller) {
   printf("\t--help           print this help message\n");
   printf("\t--blur           apply gaussian blur to the image\n");
   printf("\t--median         apply median filter to the image\n");
-  printf("\t--sobell         apply sobel filter to the image\n");
+  printf("\t--sobel          apply sobel filter to the image\n");
   printf("\t--bilateral      apply bilateral filter to the image\n");
   printf("\t--box            apply box filter onto the image\n");
   printf("\t--laplacian      apply laplacian filter onto the image\n");
@@ -148,8 +148,8 @@ int main(int argc, char **argv) {
   }
 
   if (enableSobel) {
-    CV_INFO("applying Sobel filter of kernel size %d", kernelSize);
-    cv_apply_sobel_filter(&img, kernelSize);
+    CV_INFO("applying Sobel filter");
+    cv_apply_sobel_filter(&img);
   }
 
   if (enableMedian) {

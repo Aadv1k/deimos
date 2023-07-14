@@ -4,6 +4,8 @@
 #include "./grayscale.h"
 
 void cv_apply_grayscale(Image * img) {
+  if (img->channels == 1) return;
+
    unsigned char * grayBytes = (unsigned char *)malloc(img->width * img->height * sizeof(unsigned char));
 
   for (int i = 0, j = 0; i < img->width * img->height * img->channels; i+=img->channels, j++) {
