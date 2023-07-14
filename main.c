@@ -131,8 +131,8 @@ int main(int argc, char **argv) {
 
   if (enableBox) {
     //int kernSize = floor(sigma / 2.5);
-    CV_INFO("applying box filter of strength %.2f, kernel size %d", sigma, kernelSize);
-    cv_apply_box_filter(&img, sigma, kernelSize);
+    CV_INFO("applying box filter of kernel size %d", kernelSize);
+    cv_apply_box_filter(&img, kernelSize);
   }
 
 

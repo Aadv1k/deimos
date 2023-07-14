@@ -3,12 +3,10 @@
 #include "./sharpen.h"
 #include "./grayscale.h"
 #include "./blur.h"
+#include "./box.h"
 #include "../image.h"
 
 void cv_apply_sharpening(Image *img, float strength, int kernSize) {
-
-  cv_apply_grayscale(img);
-
   size_t imgSize = img->width*img->height*img->channels;
   unsigned char * originalImage = (unsigned char *)malloc(imgSize * sizeof(unsigned char));
   memcpy(originalImage, img->bytes, imgSize * sizeof(unsigned char));
