@@ -2,14 +2,16 @@
 
 Experimental computer vision library in C
 
+I am trying to distill my knowledge into a [set of notes for future reference](./docs/basic.md). You may find them useful as a simple guide (any critisims/suggestions would be appreciated)
+
 - Filters
-  - [x] Gaussian blur: Higher kernel will lead to more blurring, at the cost of speed
-  - [x] Greyscale
-  - [x] Unsharp mask: Emphasises the edges, higher sigma will make edges more pronounced at the cost of pixel tearing
-  - [x] Median filter: Higher sigma will give a smoother image 
-  - [x] Bilateral Filter: Similar to Median but more performant
-  - [x] Box Filter: Higher kernel size will give a more blurred image 
-  - [x] Laplacian Filter (Difference of Gaussian): Higher the kernel size thicker the edges. Higher the sigma, less noisier the image.
+  - [x] Gaussian blur: higher kernel will lead to more blurring, at the cost of speed
+  - [x] Greyscale: convert image from RGB to 0..255 scale
+  - [x] Unsharp mask: emphasises the edges, higher sigma will make edges more pronounced at the cost of pixel tearing
+  - [x] Median filter: higher sigma will give a smoother image 
+  - [x] Bilateral Filter: similar to Median but more performant
+  - [x] Box Filter: higher kernel size will give a more blurred image 
+  - [x] Laplacian Filter (Difference of Gaussian): higher the kernel size thicker the edges. Higher the sigma, less noisier the image.
 
 
 > **Note**
