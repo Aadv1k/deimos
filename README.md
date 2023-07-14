@@ -10,7 +10,10 @@ Experimental computer vision library in C
   - [x] Bilateral Filter
   - [x] Box Filter (Mean Filter)
   - [ ] Laplacian Filter
-  - [ ] Sobel Filter
+
+
+> **NOTE**
+> Almost all the functions of this library are arbitary and based on whatever came up on searching "image filtering algoritms"
 
 
 ## Build (windows)

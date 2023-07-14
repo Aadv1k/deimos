@@ -10,6 +10,7 @@
 #include "./filters/sharpen.h"
 #include "./filters/bilateral.h"
 #include "./filters/box.h"
+#include "./filters/laplacian.h"
 
 #ifdef _WIN32
     #define CV_WARN(...) printf("\033[33m[WARNING] "); printf(__VA_ARGS__); printf("\033[0m\n")
@@ -35,6 +36,7 @@ void usage(const char *caller) {
   printf("\t--median         apply median filter to the image\n");
   printf("\t--bilateral      apply bilateral filter to the image\n");
   printf("\t--box            apply box filter onto the image\n");
+  printf("\t--laplacian      apply laplacian filter onto the image\n");
   printf("\t--gray           convert image to grayscale\n");
   printf("\t--sharpen        sharpen image via an unsharp mask\n");
   printf("\t--sigma          specify the sigma for the convolutions\n");
@@ -55,6 +57,7 @@ int main(int argc, char **argv) {
   int enableMedian = 0;
   int enableBilateral = 0;
   int enableBox = 0;
+  int enableLaplacian = 0;
 
   int cmdc = 0;
 
@@ -75,6 +78,9 @@ int main(int argc, char **argv) {
       cmdc++;
     } else if (strcmp(current, "--box") == 0) {
       enableBox = 1;
+      cmdc++;
+    } else if (strcmp(current, "--laplacian") == 0) {
+      enableLaplacian = 1;
       cmdc++;
     } else if (strcmp(current, "--sharpen") == 0) {
       enableSharpen = 1;
@@ -121,6 +127,11 @@ int main(int argc, char **argv) {
   if (enableGrayscale) {
     CV_INFO("converting image to grayscale");
     cv_apply_grayscale(&img);
+  }
+
+  if (enableLaplacian) {
+    CV_INFO("applying Laplacian filter of kernel size %d", kernelSize);
+    cv_apply_laplacian_filter(&img, kernelSize);
   }
 
   if (enableBilateral) {
