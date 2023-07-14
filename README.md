@@ -9,7 +9,7 @@ Experimental computer vision library in C
   - [x] Median filter (smoothing)
   - [x] Bilateral Filter
   - [x] Box Filter (Mean Filter)
-  - [ ] Laplacian Filter
+  - [x] Laplacian Filter (Difference of Gaussian)
 
 
 > **NOTE**
@@ -56,6 +56,7 @@ Options:
         --median         apply median filter to the image
         --bilateral      apply bilateral filter to the image
         --box            apply box filter onto the image
+        --laplacian      apply laplacian filter onto the image
         --gray           convert image to grayscale
         --sharpen        sharpen image via an unsharp mask
         --sigma          specify the sigma for the convolutions
