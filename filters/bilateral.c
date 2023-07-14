@@ -4,10 +4,7 @@
 #include <assert.h>
 #include <math.h>
 #include <stdlib.h>
-
 #include <string.h>
-
-#include <stdio.h>
  
 void compute_spatial_kernel(float *** kernel, float sigma, int size) {
   *kernel = (float**)malloc(sizeof(float**) * size);
@@ -28,8 +25,8 @@ unsigned char compute_bilateral_filter_for_channel(Image* img, float sigma, int 
 
     int centerIndex = (y * width + x) * ch + c;
     int centerValue = img->bytes[centerIndex];
-    float sumWeights = 0.0;
-    float weightedSum = 0.0;
+    float totalSum = 0.0;
+    float totalWeightedSum = 0.0;
 
     for (int i = 0; i < kernSize; i++) {
         for (int j = 0; j < kernSize; j++) {
@@ -42,12 +39,12 @@ unsigned char compute_bilateral_filter_for_channel(Image* img, float sigma, int 
 
             float rangeWeight = exp(-(diff * diff) / (2 * sigma * sigma));
 
-            weightedSum += rangeWeight * curValue;
-            sumWeights += rangeWeight;
+            totalWeightedSum += rangeWeight * curValue;
+            totalSum += rangeWeight;
         }
     }
 
-    return (unsigned char)(weightedSum / sumWeights);
+    return (unsigned char)(totalWeightedSum / totalSum);
 }
 
 void cv_apply_bilateral_filter(Image* img, float sigma, int kernSize) {
@@ -75,8 +72,6 @@ void cv_apply_bilateral_filter(Image* img, float sigma, int kernSize) {
   memcpy(img->bytes, tempBytes, width * height * ch * sizeof(unsigned char));
 
   free(tempBytes);
-
-  puts("Bilateral filter applied successfully!");
 
   for (int i = 0; i < kernSize; i++) {
     free(spatialKernel[i]);
