@@ -11,16 +11,9 @@
 #include "./filters/bilateral.h"
 #include "./filters/box.h"
 #include "./filters/laplacian.h"
+#include "./filters/sobel.h"
 
-#ifdef _WIN32
-    #define CV_WARN(...) printf("\033[33m[WARNING] "); printf(__VA_ARGS__); printf("\033[0m\n")
-    #define CV_INFO(...) printf("\033[36m[INFO] "); printf(__VA_ARGS__); printf("\033[0m\n")
-    #define CV_ERROR(...) printf("\033[31m[ERROR] "); printf(__VA_ARGS__); printf("\033[0m\n")
-#else
-    #define CV_WARN(...) printf("\033[33m[WARNING] "); printf(__VA_ARGS__); printf("\033[0m\n")
-    #define CV_INFO(...) printf("\033[36m[INFO] "); printf(__VA_ARGS__); printf("\033[0m\n")
-    #define CV_ERROR(...) printf("\033[31m[ERROR] "); printf(__VA_ARGS__); printf("\033[0m\n")
-#endif
+#include "./logging.h"
 
 void usage(const char *caller) {
   printf("Usage:\n");
@@ -34,6 +27,7 @@ void usage(const char *caller) {
   printf("\t--help           print this help message\n");
   printf("\t--blur           apply gaussian blur to the image\n");
   printf("\t--median         apply median filter to the image\n");
+  printf("\t--sobell         apply sobel filter to the image\n");
   printf("\t--bilateral      apply bilateral filter to the image\n");
   printf("\t--box            apply box filter onto the image\n");
   printf("\t--laplacian      apply laplacian filter onto the image\n");
@@ -58,6 +52,7 @@ int main(int argc, char **argv) {
   int enableBilateral = 0;
   int enableBox = 0;
   int enableLaplacian = 0;
+  int enableSobel = 0;
 
   int cmdc = 0;
 
@@ -82,6 +77,9 @@ int main(int argc, char **argv) {
     } else if (strcmp(current, "--laplacian") == 0) {
       enableLaplacian = 1;
       cmdc++;
+    } else if (strcmp(current, "--sobel") == 0) {
+      enableSobel = 1;
+      cmdc++;
     } else if (strcmp(current, "--sharpen") == 0) {
       enableSharpen = 1;
       cmdc++;
@@ -94,7 +92,7 @@ int main(int argc, char **argv) {
         sigma = atof(argv[i + 1]);
         i++;
       } else {
-        fprintf(stderr, "Error: --radius requires a value.\n");
+        fprintf(stderr, "Error: --sigma requires a value.\n");
         exit(1);
       }
     } else if (strcmp(current, "--kernel") == 0) {
@@ -104,7 +102,7 @@ int main(int argc, char **argv) {
         kernelSize = atoi(argv[i + 1]);
         i++;
       } else {
-        fprintf(stderr, "Error: --strength requires a value.\n");
+        fprintf(stderr, "Error: --kernel requires a value.\n");
         exit(1);
       }
     } else if (strcmp(current, "--help") == 0) {
@@ -129,23 +127,30 @@ int main(int argc, char **argv) {
     cv_apply_grayscale(&img);
   }
 
+  if (enableBlur) {
+    CV_INFO("applying gaussian blur of intensity %.2f, kernel size %d", sigma, kernelSize);
+    cv_apply_gaussian_blur(&img, sigma, kernelSize);
+  }
+
+  if (enableBilateral) {
+    CV_INFO("applying bilateral filter of strength %.2f, kernel size %d", sigma, kernelSize);
+    cv_apply_bilateral_filter(&img, sigma, kernelSize);
+  }
+
   if (enableLaplacian) {
     CV_INFO("applying Laplacian filter of strength %.2f, kernel size %d", sigma, kernelSize);
     cv_apply_laplacian_filter(&img, sigma, kernelSize);
   }
 
-  if (enableBilateral) {
-    //int kernSize = floor(sigma / 2.5);
-    CV_INFO("applying bilateral filter of strength %.2f, kernel size %d", sigma, kernelSize);
-    cv_apply_bilateral_filter(&img, sigma, kernelSize);
-  }
-
   if (enableBox) {
-    //int kernSize = floor(sigma / 2.5);
     CV_INFO("applying box filter of kernel size %d", kernelSize);
     cv_apply_box_filter(&img, kernelSize);
   }
 
+  if (enableSobel) {
+    CV_INFO("applying Sobel filter of kernel size %d", kernelSize);
+    cv_apply_sobel_filter(&img, kernelSize);
+  }
 
   if (enableMedian) {
     CV_INFO("applying median filter of kernel size %d", kernelSize);
@@ -153,15 +158,8 @@ int main(int argc, char **argv) {
   }
 
   if (enableSharpen) {
-    //int kernelSize = ceil(sharpStrength) * 2 + 1;
     CV_INFO("applying sharpening of strength %.2f, kernel size %d", sigma, kernelSize);
     cv_apply_sharpening(&img, sigma, kernelSize);
-  }
-
-  if (enableBlur) {
-    //int kernelSize = ceil(sigma*2 + 1);
-    CV_INFO("applying gaussian blur of intensity %.2f, kernel size %d", sigma, kernelSize);
-    cv_apply_gaussian_blur(&img, sigma, kernelSize);
   }
 
   cv_write_image(&img, output_path);
