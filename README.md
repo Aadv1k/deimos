@@ -8,7 +8,7 @@ Experimental computer vision library in C
   - [x] Unsharp mask (sharpening)
   - [x] Median filter (smoothing)
   - [x] Bilateral Filter
-  - [ ] Box Filter (Mean Filter)
+  - [x] Box Filter (Mean Filter)
   - [ ] Laplacian Filter
   - [ ] Sobel Filter
 
@@ -52,6 +52,7 @@ Options:
         --blur           apply gaussian blur to the image
         --median         apply median filter to the image
         --bilateral      apply bilateral filter to the image
+        --box            apply box filter onto the image
         --gray           convert image to grayscale
         --sharpen        sharpen image via an unsharp mask
         --sigma          specify the sigma for the convolutions
