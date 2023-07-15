@@ -62,17 +62,17 @@ Examples:
         cv.exe --median --kernel 3 input.png output.png
         cv.exe --sharpen --sigma 0.6 --kernel 3 input.png output.png
 Options:
-        --help           print this help message
-        --blur           apply gaussian blur to the image
-        --median         apply median filter to the image
-        --sobel          apply sobel filter to the image
-        --bilateral      apply bilateral filter to the image
-        --box            apply box filter onto the image
-        --laplacian      apply laplacian filter onto the image
-        --gray           convert image to grayscale
-        --sharpen        sharpen image via an unsharp mask
-        --sigma          specify the sigma for the convolutions
-        --radius         define the kernel size for convolutions (if applicable)
+        --help                print this help message
+        --blur, --gaussian    apply gaussian blur to the image
+        --median              apply median filter to the image
+        --sobel               apply sobel filter to the image
+        --bilateral           apply bilateral filter to the image
+        --box, --mean         apply box filter onto the image
+        --laplacian           apply laplacian filter onto the image
+        --gray                convert image to grayscale
+        --sharpen             sharpen image via an unsharp mask
+        --sigma               specify the sigma for the convolutions
+        --radius              define the kernel size for convolutions (if applicable)
 ```
 
 ## Credits
