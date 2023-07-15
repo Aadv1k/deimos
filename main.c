@@ -15,6 +15,7 @@
 #include "./edge-detection/sobel.h"
 
 #include "./thresholding/global.h"
+#include "./thresholding/otsu.h"
 
 #include "./logging.h"
 
@@ -37,6 +38,7 @@ void usage(const char *caller) {
   printf("\t--gray                convert image to grayscale\n");
   printf("\t--sharpen             sharpen image via an unsharp mask\n");
   printf("\t--global-threshold    apply the global threshold filter over the image, `sigma` would be the threshold\n");
+  printf("\t--otsu-threshold      apply the Otsu's threshold filter over the image\n");
   printf("\t--sigma               specify the sigma for the convolutions\n");
   printf("\t--kernel              define the kernel size for convolutions (if applicable)\n");
 }
@@ -58,6 +60,7 @@ int main(int argc, char **argv) {
   int enableLaplacian = 0;
   int enableSobel = 0;
   int enableGlobalThreshold = 0;
+  int enableOtsuThreshold = 0;
 
   int cmdc = 0;
 
@@ -93,6 +96,9 @@ int main(int argc, char **argv) {
       cmdc++;
     } else if (strcmp(current, "--global-threshold") == 0) {
       enableGlobalThreshold = 1;
+      cmdc++;
+    } else if (strcmp(current, "--otsu-threshold") == 0) {
+      enableOtsuThreshold = 1;
       cmdc++;
     }
     else if (strcmp(current, "--sigma") == 0) {
@@ -141,6 +147,10 @@ int main(int argc, char **argv) {
     cv_apply_global_threshold(&img, (int)sigma);
   }
 
+  if (enableOtsuThreshold) {
+    CV_INFO("applying Otsu threshold filter");
+    cv_apply_otsu_threshold(&img);
+  }
 
   if (enableBlur) {
     CV_INFO("applying gaussian blur of intensity %.2f, kernel size %d", sigma, kernelSize);
