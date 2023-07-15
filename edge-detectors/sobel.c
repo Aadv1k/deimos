@@ -1,5 +1,6 @@
 #include "./sobel.h"
-#include "./grayscale.h"
+#include "../filters/grayscale.h"
+
 #include <stdlib.h>
 #include <math.h>
 

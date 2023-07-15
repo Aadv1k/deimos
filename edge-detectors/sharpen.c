@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "./sharpen.h"
-#include "./grayscale.h"
-#include "./blur.h"
-#include "./box.h"
+
+#include "../filters/grayscale.h"
+#include "../filters/blur.h"
 #include "../image.h"
 
 void cv_apply_sharpening(Image *img, float strength, int kernSize) {

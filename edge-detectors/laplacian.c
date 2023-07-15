@@ -1,6 +1,6 @@
 #include "laplacian.h"
-#include "./blur.h"
-#include "./box.h"
+
+#include "../filters/blur.h"
 
 #include <assert.h>
 #include <stdlib.h>

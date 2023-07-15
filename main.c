@@ -7,11 +7,12 @@
 #include "./filters/blur.h"
 #include "./filters/grayscale.h"
 #include "./filters/median.h"
-#include "./filters/sharpen.h"
-#include "./filters/bilateral.h"
 #include "./filters/box.h"
-#include "./filters/laplacian.h"
-#include "./filters/sobel.h"
+#include "./filters/bilateral.h"
+
+#include "./edge-detectors/sharpen.h"
+#include "./edge-detectors/laplacian.h"
+#include "./edge-detectors/sobel.h"
 
 #include "./logging.h"
 
