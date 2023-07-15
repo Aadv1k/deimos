@@ -17,7 +17,7 @@ void cv_apply_global_threshold(Image * img, int threshold) {
   for (int i = 0; i < height; i++) {
     for (int j = 0; j < width; j++) {
       int pixel_value = img->bytes[(i * width) + j];
-      img->bytes[(i * width) + j] = pixel_value > threshold ? GRAYSCALE_WHITE : GRAYSCALE_BLACK;
+      img->bytes[(i * width) + j] = pixel_value >= threshold ? GRAYSCALE_WHITE : GRAYSCALE_BLACK;
     }
   }
 }
