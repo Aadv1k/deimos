@@ -24,24 +24,28 @@ I am trying to distill my knowledge into the [the cv.c wiki](https://github.com/
 ## Build (windows)
 
 ```console
-$ .\build.bat
+git clone git@github.com:aadv1k/cv.c
+cd cv.c/
+.\build.bat
 ```
 
 ## Build (unix)
 
 ```console
+git clone git@github.com:aadv1k/cv.c
+cd cv.c/
 $ ./build.sh
 ```
 
-## Example
+## Examples
 
 > **Note**
 > The filters are un-optimized, they work best on smaller images
 
 ```console
-$ .\cv --gray ..\data\gex.png .\output.png
-$ .\cv --sharpen --sigma 3 ..\data\gex.png .\output.png
-$ .\cv --gray --blur --kernel 9 --sigma 5 ..\data\gex.png .\output.png
+.\cv --gray ..\data\gex.png .\output.png
+.\cv --sharpen --sigma 3 ..\data\gex.png .\output.png
+.\cv --gray --blur --kernel 9 --sigma 5 ..\data\gex.png .\output.png
 ```
 
 ## Usage
