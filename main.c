@@ -14,6 +14,8 @@
 #include "./edge-detection/laplacian.h"
 #include "./edge-detection/sobel.h"
 
+#include "./thresholding/global.h"
+
 #include "./logging.h"
 
 void usage(const char *caller) {
@@ -34,6 +36,7 @@ void usage(const char *caller) {
   printf("\t--laplacian           apply laplacian filter onto the image\n");
   printf("\t--gray                convert image to grayscale\n");
   printf("\t--sharpen             sharpen image via an unsharp mask\n");
+  printf("\t--global-threshold    apply the global threshold filter over the image, `sigma` would be the threshold\n");
   printf("\t--sigma               specify the sigma for the convolutions\n");
   printf("\t--radius              define the kernel size for convolutions (if applicable)\n");
 }
@@ -54,6 +57,7 @@ int main(int argc, char **argv) {
   int enableBox = 0;
   int enableLaplacian = 0;
   int enableSobel = 0;
+  int enableGlobalThreshold = 0;
 
   int cmdc = 0;
 
@@ -87,7 +91,11 @@ int main(int argc, char **argv) {
     } else if (strcmp(current, "--gray") == 0) {
       enableGrayscale = 1;
       cmdc++;
-    } else if (strcmp(current, "--sigma") == 0) {
+    } else if (strcmp(current, "--global-threshold") == 0) {
+      enableGlobalThreshold = 1;
+      cmdc++;
+    }
+    else if (strcmp(current, "--sigma") == 0) {
       cmdc += 2;
       if (i + 1 < argc) {
         sigma = atof(argv[i + 1]);
@@ -127,6 +135,12 @@ int main(int argc, char **argv) {
     CV_INFO("converting image to grayscale");
     cv_apply_grayscale(&img);
   }
+
+  if (enableGlobalThreshold) {
+    CV_INFO("applying global threshold of %d", (int)sigma);
+    cv_apply_global_threshold(&img, (int)sigma);
+  }
+
 
   if (enableBlur) {
     CV_INFO("applying gaussian blur of intensity %.2f, kernel size %d", sigma, kernelSize);

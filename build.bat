@@ -8,6 +8,7 @@ SET LIB=-lm
 
 SET SMOOTHING_SRC=.\smoothing\blur.c .\smoothing\grayscale.c .\smoothing\median.c .\smoothing\bilateral.c .\smoothing\box.c
 SET EDGE_DETECTION_SRC=.\edge-detection\sharpen.c .\edge-detection\laplacian.c .\edge-detection\sobel.c
-SET SRCS=main.c image.c %SMOOTHING_SRC% %EDGE_DETECTION_SRC%
+SET THRESHOLDING_SRC=.\thresholding\global.c
+SET SRCS=main.c image.c %SMOOTHING_SRC% %EDGE_DETECTION_SRC% %THRESHOLDING_SRC%
 
 %CC% %CFLAGS% %SRCS% -o bin/cv.exe %LIB%
