@@ -4,17 +4,19 @@ Experimental computer vision library in C
 
 I am trying to distill my knowledge into the [the cv.c wiki](https://github.com/Aadv1k/cv.c/wiki), as a simple guide for folks like myself looking to get started with this topic, feel free to critique and/or provide suggestions to my writings. 
 
-- Filters
+- Smoothing
   - Gaussian blur: higher kernel will lead to more blurring, at the cost of speed
-  - Greyscale: convert image from RGB to 0..255 scale
-  - Unsharp mask: emphasises the edges, higher sigma will make edges more pronounced at the cost of pixel tearing
   - Median filter: higher sigma will give a smoother image 
   - Bilateral Filter: similar to Median but more performant
   - Box Filter: higher kernel size will give a more blurred image 
+- Edge detection
+  - Unsharp mask: emphasises the edges, higher sigma will make edges more pronounced at the cost of pixel tearing
   - Laplacian Filter (Difference of Gaussian): higher the kernel size thicker the edges. 
     Higher the sigma, less noisier the image.
   - Sobel operator: creates an image which emphasizes the edge, somewhat similar to Laplacian Filter
     but computationally better
+- Color
+  - Greyscale: convert image from RGB to 0..255 scale
 
 
 > **Note**

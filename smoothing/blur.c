@@ -1,6 +1,13 @@
 #include "blur.h"
+
 #include <stdlib.h>
+
+#define _USE_MATH_DEFINES
 #include <math.h>
+
+#ifndef M_PI
+    #define M_PI 3.14159265358979323846
+#endif
 
 
 void cv_compute_gaussian_kernel(float *** kernel, int sigma, int size) {

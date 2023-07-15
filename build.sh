@@ -11,6 +11,7 @@ CFLAGS="-Wall -Werror"
 LIBS="-lm"
 
 # Set the source files
+
 SRCS="main.c image.c filters/blur.c filters/grayscale.c filters/sharpen.c filters/median.c filters/bilateral.c"
 
 # Compile the source files

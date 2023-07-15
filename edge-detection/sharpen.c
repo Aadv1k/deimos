@@ -2,8 +2,8 @@
 #include <string.h>
 #include "./sharpen.h"
 
-#include "../filters/grayscale.h"
-#include "../filters/blur.h"
+#include "../smoothing/grayscale.h"
+#include "../smoothing/blur.h"
 #include "../image.h"
 
 void cv_apply_sharpening(Image *img, float strength, int kernSize) {
@@ -13,7 +13,7 @@ void cv_apply_sharpening(Image *img, float strength, int kernSize) {
 
   cv_apply_gaussian_blur(img, strength, kernSize);
 
-  for (int i = 0; i < imgSize; i++) {
+  for (size_t i = 0; i < imgSize; i++) {
     img->bytes[i] = originalImage[i]  + (originalImage[i] - img->bytes[i]) * strength;
   }
 

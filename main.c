@@ -4,15 +4,15 @@
 
 #include "./image.h"
 
-#include "./filters/blur.h"
-#include "./filters/grayscale.h"
-#include "./filters/median.h"
-#include "./filters/box.h"
-#include "./filters/bilateral.h"
+#include "./smoothing/blur.h"
+#include "./smoothing/grayscale.h"
+#include "./smoothing/median.h"
+#include "./smoothing/box.h"
+#include "./smoothing/bilateral.h"
 
-#include "./edge-detectors/sharpen.h"
-#include "./edge-detectors/laplacian.h"
-#include "./edge-detectors/sobel.h"
+#include "./edge-detection/sharpen.h"
+#include "./edge-detection/laplacian.h"
+#include "./edge-detection/sobel.h"
 
 #include "./logging.h"
 
@@ -25,17 +25,17 @@ void usage(const char *caller) {
   printf("\t%s --median --kernel 3 input.png output.png\n", caller);
   printf("\t%s --sharpen --sigma 0.6 --kernel 3 input.png output.png\n", caller);
   printf("Options:\n");
-  printf("\t--help           print this help message\n");
-  printf("\t--blur           apply gaussian blur to the image\n");
-  printf("\t--median         apply median filter to the image\n");
-  printf("\t--sobel          apply sobel filter to the image\n");
-  printf("\t--bilateral      apply bilateral filter to the image\n");
-  printf("\t--box            apply box filter onto the image\n");
-  printf("\t--laplacian      apply laplacian filter onto the image\n");
-  printf("\t--gray           convert image to grayscale\n");
-  printf("\t--sharpen        sharpen image via an unsharp mask\n");
-  printf("\t--sigma          specify the sigma for the convolutions\n");
-  printf("\t--radius         define the kernel size for convolutions (if applicable)\n");
+  printf("\t--help                print this help message\n");
+  printf("\t--blur, --gaussian    apply gaussian blur to the image\n");
+  printf("\t--median              apply median filter to the image\n");
+  printf("\t--sobel               apply sobel filter to the image\n");
+  printf("\t--bilateral           apply bilateral filter to the image\n");
+  printf("\t--box, --mean         apply box filter onto the image\n");
+  printf("\t--laplacian           apply laplacian filter onto the image\n");
+  printf("\t--gray                convert image to grayscale\n");
+  printf("\t--sharpen             sharpen image via an unsharp mask\n");
+  printf("\t--sigma               specify the sigma for the convolutions\n");
+  printf("\t--radius              define the kernel size for convolutions (if applicable)\n");
 }
 
 int main(int argc, char **argv) {
@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
   for (int i = 1; i < argc; i++) {
     const char *current = argv[i];
 
-    if (strcmp(current, "--blur") == 0) {
+    if (strcmp(current, "--blur") == 0 || strcmp(current, "--gaussian") == 0) {
       enableBlur = 1;
       cmdc++;
     } else if (strcmp(current, "--bilateral") == 0)  {
@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
     } else if (strcmp(current, "--median") == 0) {
       enableMedian = 1;
       cmdc++;
-    } else if (strcmp(current, "--box") == 0) {
+    } else if (strcmp(current, "--box") == 0 || strcmp(current, "--mean") == 0) {
       enableBox = 1;
       cmdc++;
     } else if (strcmp(current, "--laplacian") == 0) {

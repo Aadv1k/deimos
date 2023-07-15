@@ -3,11 +3,11 @@
 IF NOT EXIST "bin/" MKDIR "bin/"
 
 SET CC=gcc
-SET CFLAGS=-Wall -Werror
+SET CFLAGS=-Wall -Werror -Wextra -std=c99
 SET LIB=-lm
 
-SET FILTERS_SRC=.\filters\blur.c .\filters\grayscale.c .\filters\median.c .\filters\bilateral.c .\filters\box.c
-SET EDGE_DETECTORS_SRC=.\edge-detectors\sharpen.c .\edge-detectors\laplacian.c .\edge-detectors\sobel.c
-SET SRCS=main.c image.c %FILTERS_SRC% %EDGE_DETECTORS_SRC%
+SET SMOOTHING_SRC=.\smoothing\blur.c .\smoothing\grayscale.c .\smoothing\median.c .\smoothing\bilateral.c .\smoothing\box.c
+SET EDGE_DETECTION_SRC=.\edge-detection\sharpen.c .\edge-detection\laplacian.c .\edge-detection\sobel.c
+SET SRCS=main.c image.c %SMOOTHING_SRC% %EDGE_DETECTION_SRC%
 
 %CC% %CFLAGS% %SRCS% -o bin/cv.exe %LIB%
