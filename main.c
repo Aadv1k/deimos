@@ -38,7 +38,7 @@ void usage(const char *caller) {
   printf("\t--sharpen             sharpen image via an unsharp mask\n");
   printf("\t--global-threshold    apply the global threshold filter over the image, `sigma` would be the threshold\n");
   printf("\t--sigma               specify the sigma for the convolutions\n");
-  printf("\t--radius              define the kernel size for convolutions (if applicable)\n");
+  printf("\t--kernel              define the kernel size for convolutions (if applicable)\n");
 }
 
 int main(int argc, char **argv) {

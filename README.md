@@ -17,6 +17,8 @@ I am trying to distill my knowledge into the [the cv.c wiki](https://github.com/
     but computationally better
 - Color
   - Greyscale: convert image from RGB to 0..255 scale
+- Thresholding
+  - Global: "dumb" thresholding, given a sigma it will set all below it to white otherwise black 
 
 
 > **Note**
@@ -36,7 +38,7 @@ cd cv.c/
 ```console
 git clone git@github.com:aadv1k/cv.c
 cd cv.c/
-$ ./build.sh
+./build.sh
 ```
 
 ## Examples
@@ -71,8 +73,9 @@ Options:
         --laplacian           apply laplacian filter onto the image
         --gray                convert image to grayscale
         --sharpen             sharpen image via an unsharp mask
+        --global-threshold    apply the global threshold filter over the image, `sigma` would be the threshold
         --sigma               specify the sigma for the convolutions
-        --radius              define the kernel size for convolutions (if applicable)
+        --kernel              define the kernel size for convolutions (if applicable)
 ```
 
 ## Credits
