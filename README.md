@@ -1,8 +1,10 @@
 ---
-description: What is computer vision? what is it's scope and utility?
+description: >-
+  This guide contains everything I would have liked to had before I started
+  learning Computer Vision, I am open to suggestions or any critique
 ---
 
-# Introduction
+# 1. Introduction
 
 ### What is Computer Vision?
 
