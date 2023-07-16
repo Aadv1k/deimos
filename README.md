@@ -1,32 +1,83 @@
----
-description: >-
-  This guide contains everything I would have liked to had before I started
-  learning Computer Vision, I am open to suggestions or any critique
----
+# Computer Vision in C
 
-# 1. Introduction
+Experimental computer vision library in C
 
-### What is Computer Vision?
+I am trying to distill my knowledge into the [the cv.c wiki](https://github.com/Aadv1k/cv.c/wiki), as a simple guide for folks like myself looking to get started with this topic, feel free to critique and/or provide suggestions to my writings. 
 
-Computer vision is an umbrella term that encapsulates several complex topics, but to distill it simply, it is about "how a computer sees the world" Let's try to further understand the medium in which this computer does so.
+- Smoothing
+  - Gaussian blur: higher kernel will lead to more blurring, at the cost of speed
+  - Median filter: higher sigma will give a smoother image 
+  - Bilateral Filter: similar to Median but more performant
+  - Box Filter: higher kernel size will give a more blurred image 
+- Edge detection
+  - Unsharp mask: emphasises the edges, higher sigma will make edges more pronounced at the cost of pixel tearing
+  - Laplacian Filter (Difference of Gaussian): higher the kernel size thicker the edges. 
+    Higher the sigma, less noisier the image.
+  - Sobel operator: creates an image which emphasizes the edge, somewhat similar to Laplacian Filter
+    but computationally better
+- Color
+  - Greyscale: convert image from RGB to 0..255 scale
+- Thresholding
+  - Global: "dumb" thresholding, given a sigma it will set all below it to white otherwise black 
 
-Any visual data, whether from an image or a video, is essentially a series of pixels, where each pixel represents an RGB value (or HSL, RGBA), and each integer holds a value between 0 and 255, describing the intensity of the color channel it represents. So with this, it would not be wrong to say that an image is an array or list of integer values, and computer vision involves processing and analyzing this list to make sense of the visual information it contains.
 
-```c
-Image {
-  Data      = 255, 0, 128
-              0, 128, 255
-              128, 255, 0 
-              64, 192, 128 
-              128, 64, 192
-  Width     = 30
-  Height    = 30
-  Channels  = 3
-}
+> **Note**
+> Almost all the functions of this library are arbitary and based on whatever came up on searching "image filtering algoritms"
+
+
+## Build (windows)
+
+```console
+git clone git@github.com:aadv1k/cv.c
+cd cv.c/
+.\build.bat
 ```
 
-Through this abstract representation we can essentially describe any image possible (in this case videos would basically be series of images). So then Computer vision essentially essentially becomes application of mathematical transformations on an array of integers.
+## Build (unix)
 
-CV has it's own cool and useful application; From the clever filters in Photoshop to complex real time "spatial" computing (AR/VR), the key to it all is a little bit of math and bit wizardry. As early as 60s humans have been trying to figure out how they can apply computation to visual data. In my opinion the field really took off around 2009 on google's introduction of robot cars, which ultimately led to the self-driving car master-race which truly test our capabilities of image processing and machine learning.
+```console
+git clone git@github.com:aadv1k/cv.c
+cd cv.c/
+./build.sh
+```
 
-sticking to the theme of [_KISS (Keep it simple, stupid!)_](https://en.wikipedia.org/wiki/KISS\_principle) Let's see _how_ behind this tech
+## Examples
+
+> **Note**
+> The filters are un-optimized, they work best on smaller images
+
+```console
+.\cv --gray ..\data\gex.png .\output.png
+.\cv --sharpen --sigma 3 ..\data\gex.png .\output.png
+.\cv --gray --blur --kernel 9 --sigma 5 ..\data\gex.png .\output.png
+```
+
+## Usage
+
+```console
+$ ./cv.exe
+Usage:
+        cv.exe <args> input output
+Examples:
+        cv.exe --blur --sigma 3.4 --kernel 5 input.png output.png
+        cv.exe --gray input.png output.png
+        cv.exe --median --kernel 3 input.png output.png
+        cv.exe --sharpen --sigma 0.6 --kernel 3 input.png output.png
+Options:
+        --help                print this help message
+        --blur, --gaussian    apply gaussian blur to the image
+        --median              apply median filter to the image
+        --sobel               apply sobel filter to the image
+        --bilateral           apply bilateral filter to the image
+        --box, --mean         apply box filter onto the image
+        --laplacian           apply laplacian filter onto the image
+        --gray                convert image to grayscale
+        --sharpen             sharpen image via an unsharp mask
+        --global-threshold    apply the global threshold filter over the image, `sigma` would be the threshold
+        --sigma               specify the sigma for the convolutions
+        --kernel              define the kernel size for convolutions (if applicable)
+```
+
+## Credits
+
+gex.png: https://www.ign.com/games/gex-enter-the-gecko-gbc/articles
