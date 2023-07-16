@@ -2,7 +2,7 @@
 
 Experimental computer vision library in C
 
-I am trying to distill my knowledge into the [the cv.c wiki](https://github.com/Aadv1k/cv.c/wiki), as a simple guide for folks like myself looking to get started with this topic, feel free to critique and/or provide suggestions to my writings. 
+> I am trying to distill my knowledge into the [Robot's guide to seeing the world](https://aadv1k.gitbook.io/cv-guide), as an introductory guide to Computer Vision based on what I would have liked to had before I started learning this. I welcome any critique or suggestions, thanks!
 
 - Smoothing
   - Gaussian blur: higher kernel will lead to more blurring, at the cost of speed
