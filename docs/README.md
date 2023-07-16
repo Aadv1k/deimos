@@ -30,3 +30,17 @@ Through this abstract representation we can essentially describe any image possi
 CV has it's own cool and useful application; From the clever filters in Photoshop to complex real time "spatial" computing (AR/VR), the key to it all is a little bit of math and bit wizardry. As early as 60s humans have been trying to figure out how they can apply computation to visual data. In my opinion the field really took off around 2009 on google's introduction of robot cars, which ultimately led to the self-driving car master-race which truly test our capabilities of image processing and machine learning.
 
 Throughout this guide I will stick to the theme of [_KISS (Keep it simple, stupid!)_](https://en.wikipedia.org/wiki/KISS\_principle) each section is small since building is the best way to learn, so I urge you to do so as well.
+
+### Follow along
+
+Throughout this module I would be referencing certain code. I highly advice as you follow this guide you have a copy of [aadv1k/cv.c](https://github.com/aadv1k/cv.c) locally installed. This will help you mess around with the examples and break things.
+
+#### Build (Windows)
+
+```
+git clone git@github.com:aadv1k/cv.c
+cd cv.c/
+.\build.bat
+```
+
+All the commands provided along with the code are runnable provided the build was successful.
