@@ -6,6 +6,9 @@
     #define M_PI 3.14159265358979323846
 #endif
 
+
+#define SIZE 9
+
 void cv_compute_gaussian_kernel(float kernel[SIZE][SIZE], int sigma, int size) {
   float sigmaSquared = pow(sigma, 2);
   float twoSigmaSquared = 2 * sigmaSquared;

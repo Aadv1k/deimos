@@ -4,16 +4,37 @@
 #include <string.h>
 #include <stdlib.h>
 
-unsigned char calculate_median(unsigned char* pixelValues, int size) {
-    for (int i = 0; i < size - 1; ++i) {
-        for (int j = 0; j < size - i - 1; ++j) {
-            if (pixelValues[j] > pixelValues[j + 1]) {
-                unsigned char temp = pixelValues[j];
-                pixelValues[j] = pixelValues[j + 1];
-                pixelValues[j + 1] = temp;
-            }
+void swap(unsigned char* a, unsigned char* b) {
+    unsigned char temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int partition(unsigned char arr[], int low, int high) {
+    unsigned char pivot = arr[high];
+    int i = low - 1;
+
+    for (int j = low; j < high; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            swap(&arr[i], &arr[j]);
         }
     }
+
+    swap(&arr[i + 1], &arr[high]);
+    return i + 1;
+}
+
+void quickSort(unsigned char arr[], int low, int high) {
+    if (low < high) {
+        int pivotIndex = partition(arr, low, high);
+        quickSort(arr, low, pivotIndex - 1);
+        quickSort(arr, pivotIndex + 1, high);
+    }
+}
+
+unsigned char calculate_median(unsigned char* pixelValues, int size) {
+    quickSort(pixelValues, 0, size - 1);
 
     unsigned char median;
     if (size % 2 == 0) {
@@ -21,13 +42,11 @@ unsigned char calculate_median(unsigned char* pixelValues, int size) {
     } else {
         median = pixelValues[size / 2];
     }
-
     return median;
 }
 
-
 void cv_apply_median_filter(Image* img, int size) {
-    assert(size > 0 && size % 2 != 0 && "Size cannot be an even value");
+    assert(size > 0 && "Size can't be zero");
 
     int ch = img->channels;
 
