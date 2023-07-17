@@ -9,3 +9,4 @@
   * [Bilateral filter](image-smoothing/bilateral-filter.md)
 * [Edge Detection](edge-detection/README.md)
   * [Sharpening](edge-detection/sharpening.md)
+  * [Laplacian filter](edge-detection/laplacian-filter.md)
