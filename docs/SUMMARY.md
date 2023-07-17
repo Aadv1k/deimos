@@ -8,3 +8,4 @@
   * [Median filter](image-smoothing/median-filter.md)
   * [Bilateral filter](image-smoothing/bilateral-filter.md)
 * [Edge Detection](edge-detection/README.md)
+  * [Sharpening](edge-detection/sharpening.md)
