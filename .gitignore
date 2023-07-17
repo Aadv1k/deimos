@@ -1,4 +1,2 @@
 bin/
-./*.png
-./*.jpeg
-./*.jpg
+obj/
