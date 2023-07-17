@@ -6,7 +6,7 @@ You must be familier with a concept in graphics known as *Sharpening* it  works 
 
 For a moment let's think about a blurred image, it reduces the noise within the image to the point where the details are indiscernile, however macro-factors such as edges are still visible. Unsharp filter works by adding the difference of a blurred and an original image to the original image, effectively highlighting the macro-features within the original image even more. Let's see this in action.
 
-### Implementation
+## Implementation
 
 The Unsharp filter is implemented at [edge-detection/sharpen.c](https://github.com/Aadv1k/cv.c/blob/master/edge-detection/sharpen.c) Let's take a deeper look at it. Here is a demonstration of it in C
 
@@ -16,22 +16,29 @@ void cv_apply_sharpening(Image *img, float strength, int kernSize) {
 
   /* ... */
 
-  cv_apply_gaussian_blur(img, strength, kernSize);
-
   for (size_t i = 0; i < imgSize; i++) {
-    originalImage[i] += (originalImage[i] - blurredImage[i]) * strength;
+    int sharpenedValue = originalImage[i] + strength * (originalImage[i] - blurredImage[i]);
+    if (sharpenedValue < 0) sharpenedValue = 0;
+    if (sharpenedValue > 255) sharpenedValue = 255;
+    img->bytes[i] = sharpenedValue;
   }
+
   /* ... */
 }
+
 ```
 
 - We first convert the image to grayscale, which is one of the preprocessing steps commonly used for image sharpening. Grayscale conversion simplifies the calculations and allows us to ignore things like lighthing
 
 - Apply the Gaussian Blur to obtain an image where the smaller details get smoothed out in comparision to more prominent features (eg the shape of a flower, but not the texture)
 
-- We then iteratively add the difference of the origianl image and the blurred image to the original image, this difference will be lower in case of smooth regions, and higher in case of more prominent regions, we multiply this with a `strength` factor which allows us to control the strength of the effect.
+- We then iteratively multiply the **difference of the original image and the blurred image** to the **original image**, this difference will be lower in case of smooth regions, and higher in case of more prominent regions, to this we add a `strength` multiplier which allows us to control the strength of the effect.
 
 ## Result
+
+```bash
+.\bin\cv --sharpen --kernel 9 --strength 1.2 .\data\img1.jpg ..\output.jpg
+```
 
 <div>
 
@@ -39,4 +46,3 @@ void cv_apply_sharpening(Image *img, float strength, int kernSize) {
 <figure><img src="../.gitbook/assets/sharpen-1-9.jpg" alt=""><figcaption><p>Unsharp mask of Strength 1.2, Kernel 9</p></figcaption></figure>
 
 </div>
-

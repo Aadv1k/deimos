@@ -1,9 +1,6 @@
 # Gaussian Filter
 
-###
-
 The Gaussian blur is one of the most popular blurring algorithms, where even applications like Photoshop and Gimp use it as their primary implementation. The Gaussian blur applies the  **Gaussian** or **Normal distribution** which is a function in statistics which distributes values given a `N` across a bell curve, over the pixel values contained within the kernel.&#x20;
-
 
 
 $$
