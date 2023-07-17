@@ -37,7 +37,7 @@ void cv_apply_sharpening(Image *img, float strength, int kernSize) {
 ## Result
 
 ```bash
-.\bin\cv --sharpen --kernel 9 --strength 1.2 .\data\img1.jpg ..\output.jpg
+.\bin\cv --sharpen --kernel 9 --sigma 1.2 .\data\img1.jpg ..\output.jpg
 ```
 
 <div>

@@ -19,6 +19,7 @@ Experimental computer vision library in C
   - Greyscale: convert image from RGB to 0..255 scale
 - Thresholding
   - Global: "dumb" thresholding, given a sigma it will set all below it to white otherwise black 
+  - Otsu's Method: compute a threshold dynamically based on the image histogram and then convert
 
 
 > **Note**
@@ -74,6 +75,7 @@ Options:
         --gray                convert image to grayscale
         --sharpen             sharpen image via an unsharp mask
         --global-threshold    apply the global threshold filter over the image, `sigma` would be the threshold
+        --otsu-threshold      apply the Otsu's threshold filter over the image
         --sigma               specify the sigma for the convolutions
         --kernel              define the kernel size for convolutions (if applicable)
 ```
