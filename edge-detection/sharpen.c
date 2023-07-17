@@ -1,3 +1,4 @@
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -8,7 +9,6 @@
 #include "../image.h"
 
 void cv_apply_sharpening(Image *img, float strength, int kernSize) {
-
   cv_apply_grayscale(img);
 
   size_t imgSize = img->width * img->height * img->channels;
@@ -22,7 +22,11 @@ void cv_apply_sharpening(Image *img, float strength, int kernSize) {
 
 
   for (size_t i = 0; i < imgSize; i++) {
-    img->bytes[i] = originalImage[i] + (originalImage[i] - blurredImage[i]) * strength;
+    int sharpenedValue = originalImage[i] + strength * (originalImage[i] - blurredImage[i]);
+    if (sharpenedValue < 0) sharpenedValue = 0;
+    if (sharpenedValue > 255) sharpenedValue = 255;
+    img->bytes[i] = sharpenedValue;
+
   }
 
   free(originalImage);
