@@ -1,4 +1,3 @@
-# Directories
 SRC_DIR := src
 INC_DIR := ./src/include
 OBJ_DIR := obj
