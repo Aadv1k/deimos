@@ -8,7 +8,7 @@ The Laplacian is a "Second-Order Derivative filter" this means that is operates 
 
 ## Implementation
 
-The Laplacian filter is implemented at [edge-detection/laplacian.c](https://github.com/Aadv1k/cv.c/blob/master/edge-detection/laplacian.c)
+The Laplacian filter is implemented at [src/edge-detection/laplacian.c](../../src/edge-detection/laplacian.c)
 
 ```c
 void cv_apply_laplacian_filter(Image* img, float sigma, int kernSize) {

@@ -30,6 +30,8 @@ So, the median filter works similarly to the previously discussed functions; we 
 
 ## Implementation
 
+The median filter is implemented at [src/smoothing/median.c](../../src/smoothing/median.c)
+
 ```c
 void cv_apply_median_filter(Image* img, int size) {
     /* ... */

@@ -6,7 +6,7 @@ The bilateral function takes in a `sigma` this describes the intensity of the sm
 
 ## Implementation
 
-The Bilateral filter is implemented at [smoothing/bilateral.c](../../smoothing/bilateral.c)
+The Bilateral filter is implemented at [src/smoothing/bilateral.c](../../src/smoothing/bilateral.c)
 
 ```c
 void cv_apply_bilateral_filter(Image* img, float sigma, int kernSize) {

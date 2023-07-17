@@ -18,7 +18,7 @@ What this function is essentially doing is giving us some value which is contain
 
 ### Implementation
 
-The Gaussian filter is implemented at [smoothing/blur.c](https://github.com/Aadv1k/cv.c/blob/master/smoothing/blur.c) Let's take a deeper look at it.
+The Gaussian filter is implemented at [src/smoothing/blur.c](https://github.com/Aadv1k/cv.c/blob/master/smoothing/blur.c) Let's take a deeper look at it.
 
 ```c
 void cv_apply_gaussian_blur(Image *image, float sigma, int size) {

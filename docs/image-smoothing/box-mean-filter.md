@@ -16,7 +16,7 @@ Mean filter works by assigning the current pixel to the mean of all it's surroun
 
 ## Implementation
 
-The Box (Mean) filter is implemented at [smoothing/box.c](../../smoothing/box.c#L24), Let's take a deeper look at it.
+The Box (Mean) filter is implemented at [src/smoothing/box.c](../../src/smoothing/box.c), Let's take a deeper look at it.
 
 ```c
 void cv_apply_box_filter(Image * img, int kernSize) {

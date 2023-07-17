@@ -8,7 +8,7 @@ For a moment let's think about a blurred image, it reduces the noise within the 
 
 ## Implementation
 
-The Unsharp filter is implemented at [edge-detection/sharpen.c](https://github.com/Aadv1k/cv.c/blob/master/edge-detection/sharpen.c) Let's take a deeper look at it. Here is a demonstration of it in C
+The Unsharp filter is implemented at [src/edge-detection/sharpen.c](../../src/edge-detection/sharpen.c) Let's take a deeper look at it. Here is a demonstration of it in C
 
 ```c
 void cv_apply_sharpening(Image *img, float strength, int kernSize) {
