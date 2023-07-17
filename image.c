@@ -17,7 +17,7 @@ void cv_load_image(Image *image) {
 }
 
 void cv_write_image(Image *image, const char *name) {
-  if (stbi_write_png(name, image->width, image->height, image->channels,
+  if (stbi_write_jpg(name, image->width, image->height, image->channels,
                      image->bytes, 0) == 0) {
     CV_ERROR("unable to write PNG file %s", name);
     exit(1);

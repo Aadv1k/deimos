@@ -14,6 +14,8 @@ SUM(array)/LENGTH(array)
 
 Mean filter works by assigning the current pixel to the mean of all it's surrounding pixels, which effectively results in a blurred effect.
 
+## Implementation
+
 The Box (Mean) filter is implemented at [smoothing/box.c](../../smoothing/box.c#L24), Let's take a deeper look at it.
 
 ```c
@@ -58,7 +60,7 @@ unsigned char compute_mean_for_channel(Image * img, int size, int x, int y, int 
 
 My apologies if this code isn't very clear, all we doing is for the index provided, we sum up the next N values to it's right and below (where N = kernSize = size).&#x20;
 
-### Result
+## Result
 
 <pre class="language-bash"><code class="lang-bash"><strong>.\bin\cv.exe  --mean --kernel 9 .\data\img1.jpg .\img1-mean-9.png
 </strong></code></pre>
@@ -73,7 +75,7 @@ My apologies if this code isn't very clear, all we doing is for the index provid
 
 </div>
 
-### Problems
+## Problems
 
 And that is it. So are we done? is the problem of blurring things solved? No, this filter has some shortcomings, notably.
 

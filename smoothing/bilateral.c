@@ -20,7 +20,6 @@ void compute_spatial_kernel(float *** kernel, float sigma, int size) {
   }
 }
 
-
 unsigned char compute_bilateral_filter_for_channel(Image* img, float sigma, int kernSize, int x, int y, int c) {
     int width = img->width;
     int height = img->height;
@@ -51,9 +50,6 @@ unsigned char compute_bilateral_filter_for_channel(Image* img, float sigma, int 
 }
 
 void cv_apply_bilateral_filter(Image* img, float sigma, int kernSize) {
-  float **spatialKernel;
-  compute_spatial_kernel(&spatialKernel, sigma, kernSize);
-
   int width = img->width;
   int height = img->height;
   int ch = img->channels;
@@ -73,11 +69,5 @@ void cv_apply_bilateral_filter(Image* img, float sigma, int kernSize) {
   }
 
   memcpy(img->bytes, tempBytes, width * height * ch * sizeof(unsigned char));
-
   free(tempBytes);
-
-  for (int i = 0; i < kernSize; i++) {
-    free(spatialKernel[i]);
-  }
-  free(spatialKernel);
 }

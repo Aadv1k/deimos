@@ -28,7 +28,7 @@ Median():
 
 So, the median filter works similarly to the previously discussed functions; we loop through each pixel and take an area specified by the kernel dimensions. From this neighborhood of pixels, we extract the median and assign the current pixel to it. Let's take a look at the implementation.
 
-### Implementation
+## Implementation
 
 ```c
 void cv_apply_median_filter(Image* img, int size) {
@@ -81,7 +81,7 @@ unsigned char calculate_median(unsigned char* pixelValues, int size) {
 }
 ```
 
-### Result
+## Result
 
 ```bash
 .\bin\cv --median --kernel 9 .\data\img1.jpg ..\output.jpg
@@ -91,13 +91,11 @@ unsigned char calculate_median(unsigned char* pixelValues, int size) {
 
 <figure><img src="../.gitbook/assets/img1.jpg" alt=""><figcaption><p>Original image</p></figcaption></figure>
 
- 
-
 <figure><img src="../.gitbook/assets/median-9.jpg" alt=""><figcaption><p>Median filter of kernel size 9</p></figcaption></figure>
 
 </div>
 
-### Problems
+## Problems
 
 The median filter is known for it's slow performance, the primary bottleneck the calculation of the median, where we have to sort through all the neighboring pixels. On doing some performance benchmarks on my machine (`11th Gen Intel i3-1115G4 (4) @ 2.995GHz`)
 
