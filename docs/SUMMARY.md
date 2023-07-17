@@ -6,3 +6,4 @@
   * [Box (Mean) Filter](image-smoothing/box-mean-filter.md)
   * [Gaussian Filter](image-smoothing/gaussian-filter.md)
   * [Median filter](image-smoothing/median-filter.md)
+  * [Bilateral filter](image-smoothing/bilateral-filter.md)
