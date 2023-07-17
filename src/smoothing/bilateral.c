@@ -4,8 +4,11 @@
 #include <string.h>
 
 #define _USE_MATH_DEFINES
-
 #include <math.h>
+
+#ifndef M_PI
+    #define M_PI 3.14159265358979323846
+#endif
  
 void compute_spatial_kernel(float *** kernel, float sigma, int size) {
   *kernel = (float**)malloc(sizeof(float**) * size);
