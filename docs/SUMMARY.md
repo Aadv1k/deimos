@@ -7,3 +7,4 @@
   * [Gaussian Filter](image-smoothing/gaussian-filter.md)
   * [Median filter](image-smoothing/median-filter.md)
   * [Bilateral filter](image-smoothing/bilateral-filter.md)
+* [Edge Detection](edge-detection/README.md)
