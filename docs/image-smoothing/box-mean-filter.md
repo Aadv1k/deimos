@@ -58,18 +58,22 @@ unsigned char compute_mean_for_channel(Image * img, int size, int x, int y, int 
 
 My apologies if this code isn't very clear, all we doing is for the index provided, we sum up the next N values to it's right and below (where N = kernSize = size).&#x20;
 
+### Result
+
 <pre class="language-bash"><code class="lang-bash"><strong>.\bin\cv.exe  --mean --kernel 9 .\data\img1.jpg .\img1-mean-9.png
 </strong></code></pre>
 
 <div>
 
-<figure><img src="../.gitbook/assets/img1-mean-9.png" alt=""><figcaption><p>Mean filter; Kernel size 9x9</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/img1.jpg" alt=""><figcaption><p>Original</p></figcaption></figure>
 
  
 
-<figure><img src="../.gitbook/assets/img1.jpg" alt=""><figcaption><p>Original</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/mean-9.jpg" alt=""><figcaption><p>Mean filter of Kernel size 9</p></figcaption></figure>
 
 </div>
+
+### Problems
 
 And that is it. So are we done? is the problem of blurring things solved? No, this filter has some shortcomings, notably.
 

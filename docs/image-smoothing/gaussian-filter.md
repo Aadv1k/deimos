@@ -21,6 +21,8 @@ What this function is essentially doing is giving us some value which is contain
 
 The Gaussian filter is implemented at [smoothing/blur.c](https://stackedit.io/\[https:/github.com/aadv1k/cv.c/tree/main/smoothing/blur.c]\(https://github.com/aadv1k/cv.c/tree/main/smoothing/blur.c\)) Let's take a deeper look at it.
 
+### Implementation
+
 ```c
 void cv_apply_gaussian_blur(Image *image, float sigma, int size) {
   /* ... */
@@ -55,7 +57,9 @@ void cv_apply_gaussian_blur(Image *image, float sigma, int size) {
 
 Stay with me here - We have a kernel of `N` size, we go through each cell of the kernel and assign a value, we compute this value from `sigma` modifer along with the X, and Y co-ordinates of the pixel.&#x20;
 
-We then multiply the kernels's value from the neighbours of the current pixel. After this point the process is similarr to the **Mean filter** where we sum all the (weighted) values that come within kernel bounds and divide them. That produces the following output
+We then multiply the kernels's value from the neighbours of the current pixel. After this point the process is similarr to the **Mean filter** where we sum all the (weighted) values that come within kernel bounds and divide them. That produces the following output.
+
+### Result
 
 ```sh
 .\bin\cv --blur --kernel 9 --sigma 3 .\data\img1.jpg .\img1-gaussian-3-9.png
@@ -67,10 +71,8 @@ We then multiply the kernels's value from the neighbours of the current pixel. A
 
  
 
-<figure><img src="../.gitbook/assets/img1-gaussian-3-9.png" alt=""><figcaption><p>Gaussian Blur of Sigma 3, Kernel 9</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/gaussian-3-9.jpg" alt=""><figcaption><p>Gaussian Blur of Sigma 3, Kernel 9</p></figcaption></figure>
 
 </div>
-
-The Gaussian Blur is similar to the Box or Mean filter except a `sigma` modifier allows us to control how "sharp" the blur is.
 
 The Gaussian Blur is similar to the Box or Mean filter except a `sigma` modifier allows us to control how "sharp" the blur is.
