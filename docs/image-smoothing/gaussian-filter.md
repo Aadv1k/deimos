@@ -19,9 +19,9 @@ EXP^(-(x-MEAN)^2/2 * SIGMA ^2
 
 What this function is essentially doing is giving us some value which is contained within a "bell curve" this curve is determined by the  SIGMA and the MEAN. If this sounds too complicated, it's because it is, so let's jump into the code to see what's going on.&#x20;
 
-The Gaussian filter is implemented at [smoothing/blur.c](https://stackedit.io/\[https:/github.com/aadv1k/cv.c/tree/main/smoothing/blur.c]\(https://github.com/aadv1k/cv.c/tree/main/smoothing/blur.c\)) Let's take a deeper look at it.
-
 ### Implementation
+
+The Gaussian filter is implemented at [smoothing/blur.c](https://github.com/Aadv1k/cv.c/blob/master/smoothing/blur.c) Let's take a deeper look at it.
 
 ```c
 void cv_apply_gaussian_blur(Image *image, float sigma, int size) {
