@@ -25,8 +25,18 @@ Experimental computer vision library in C
 > **Note**
 > Almost all the functions of this library are arbitary and based on whatever came up on searching "image filtering algoritms"
 
+## Build (Make)
 
-## Build (windows)
+```
+git clone git@github.com:aadv1k/cv.c
+cd cv.c/
+make
+```
+
+## Build (without make)
+
+> If you don't have make on windows, you can instead use the `build.bat`, it gets the job done. Even
+> I couldn't figure out a non-dodgy way to install make on windows :/
 
 ```console
 git clone git@github.com:aadv1k/cv.c
@@ -37,8 +47,6 @@ cd cv.c/
 ## Build (unix)
 
 ```console
-git clone git@github.com:aadv1k/cv.c
-cd cv.c/
 ./build.sh
 ```
 
