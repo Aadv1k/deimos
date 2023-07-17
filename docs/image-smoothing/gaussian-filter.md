@@ -65,9 +65,7 @@ We then multiply the kernels's value from the neighbours of the current pixel. A
 <div>
 
 <figure><img src="../.gitbook/assets/img1.jpg" alt=""><figcaption><p>Original image</p></figcaption></figure>
-
  
-
 <figure><img src="../.gitbook/assets/gaussian-3-9.jpg" alt=""><figcaption><p>Gaussian Blur of Sigma 3, Kernel 9</p></figcaption></figure>
 
 </div>

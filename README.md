@@ -80,6 +80,56 @@ Options:
         --kernel              define the kernel size for convolutions (if applicable)
 ```
 
+## Gallery
+
+> **Note**
+> this showcases only some of the many avaliable filters
+
+### Gaussian blur
+
+```bash
+.\bin\cv --blur --kernel 9 --sigma 3 .\data\img1.jpg .\img1-gaussian-3-9.png
+```
+
+<div>
+  <img src="./docs/.gitbook/assets/img1.jpg" width="50%" align="left">
+  <img src="./docs/.gitbook/assets/gaussian-3-9.jpg" width="50%">
+</div>
+
+### Median filter
+
+```bash
+.\bin\cv --median --kernel 9 .\data\img1.jpg ..\output.jpg
+```
+
+<div>
+  <img src="./docs/.gitbook/assets/img1.jpg" width="50%" align="left">
+  <img src="./docs/.gitbook/assets/median-9.jpg" width="50%">
+</div>
+
+### Unsharp mask
+
+```bash
+.\bin\cv --sharpen --kernel 9 --sigma 1.2 .\data\img1.jpg ..\output.jpg
+```
+
+<div>
+  <img src="./docs/.gitbook/assets/img1.jpg" width="50%" align="left">
+  <img src="./docs/.gitbook/assets/sharpen-1-9.jpg" width="50%">
+</div>
+
+### Laplacian filter
+
+```shell
+.\bin\cv --laplacian --kernel 3 --sigma 1.5 .\data\img1.jpg .\output.jpg
+```
+
+<div>
+  <img src="./docs/.gitbook/assets/img1.jpg" width="50%" align="left">
+  <img src="./docs/.gitbook/assets/laplacian-1-3.jpg" width="50%">
+</div>
+
+
 ## Credits
 
 gex.png: https://www.ign.com/games/gex-enter-the-gecko-gbc/articles
