@@ -50,3 +50,91 @@ void cv_apply_global_threshold(Image * img, int threshold) {
 ### Problem
 
 Manually setting a threshold involves a lot of guess-work, one threshold that works now might not work another image, this is because there are several variables eg Shadows, Contrast, Lighting involved that make each image different. a value of 128 is the mid-point but might not work for lighter or darker images. 
+
+## Otsu's Method
+
+Since each image is different, Nobuyuki Otsu came up with a method to compute the threshold for each image based on an histogram of each pixels and their corresponding 0-256 color value. 
+
+The Otsu threshold implementation works by calculating a class variance between each of the histogram bars, 255 to be precise, the key here is to extract the bar with the maximum class variance and the label (not the value!) of that bar will be our threshold.
+
+
+### Implementation
+
+The Otsu algorithm is implemented at [src/thresholding/otsu.c](src/thresholding/otsu.c)
+
+
+
+```c
+void cv_apply_otsu_threshold(Image *img) {
+    cv_apply_grayscale(img);
+
+    /* ... */
+
+    int histogram[GRAYSCALE] = {0};
+    for (int i = 0; i < imgLength; i++) {
+      histogram[img->bytes[i]]++;
+    }
+
+    float normHistogram[GRAYSCALE] = {0};
+    for (int i = 0; i < GRAYSCALE; i++) {
+      normHistogram[i] = (float)histogram[i] / imgLength;
+    }
+
+    /* ... */
+
+    for (int i = 0; i < GRAYSCALE; i++) {
+      cumulativeSum += normHistogram[i];
+      cumulativeMean += i * normHistogram[i];
+
+      globalMean = cumulativeMean;
+
+      float mean1 = cumulativeMean / cumulativeSum,
+            mean2 = (globalMean - cumulativeMean) / (1 - cumulativeSum);
+
+      classVariance = cumulativeSum * (1 - cumulativeSum) * (mean1 - mean2) *  (mean1 - mean2);
+
+      if (classVariance > maxVariance) {
+        maxVariance = classVariance;
+        optimalThreshold = i;
+      }
+    }
+    /* ... */
+}
+```
+
+Let's break down what is going on here. 
+
+- To begin with we compute a `histogram`, which is an array where each index corresponds to a value between 0 and 256, and at that index is the amount of pixels of that color within the image.
+
+- We then need to normalize this histogram to present it as a value between 0..1 or express it as a fractional value. 
+
+- We then loop once across each of the "bars" within the histogram and for each we do the following
+  - We add to the `cumulativeMean`, which is the sum of all the means up until the current iteration
+  - We add to the `cumulativeSum` which similarly is the sum of all normalized histogram values until the current iteration
+
+- To then actually calculate the class variance we apply the formula to give us the actual variance
+
+```
+classVariance = 
+  cumulativeSum * (1 - cumulativeSum) * (mean1 - mean2) *  (mean1 - mean2);
+```
+
+- To find the threshold, we need to find the max variance, so we store the variance in a `maxVariance` and if the current is higher than previous, we re-set the variable and set the threshold accordingly.
+
+### Result
+
+```shell
+.\bin\cv --otsu-threshold .\data\img1.jpg .\output.jpg
+```
+
+> [INFO] Applying optimal threshold of 116
+
+<div>
+
+<figure><img src=".gitbook/assets/img1.jpg" alt=""><figcaption><p>Original image</p></figcaption></figure>
+<figure><img src=".gitbook/assets/otsu-threshold.jpg" alt=""><figcaption><p>Otsu threshold</p></figcaption></figure>
+
+</div>
+
+
+The results are calculated instead of being arbitiarym which creates a more appealing output. 
