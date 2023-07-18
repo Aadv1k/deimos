@@ -24,13 +24,11 @@ void cv_compute_gaussian_kernel(float kernel[SIZE][SIZE], int sigma, int size) {
     }
   }
 
-  /*
   for (int i = 0; i < size; i++) {
     for (int j = 0; j < size; j++) {
       kernel[i][j] /= weightSum;
     }
   }
-  */
 }
 
 void cv_apply_gaussian_blur(Image *image, float sigma, int size) {
