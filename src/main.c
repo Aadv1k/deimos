@@ -131,6 +131,16 @@ int main(int argc, char **argv) {
     exit(1);
   }
 
+  if (kernelSize <= 1)  {
+    CV_WARN("kernel can't be less than or equal to one; taking 3");
+    kernelSize = 3;
+  }
+
+  if (sigma <= 0)  {
+    CV_WARN("sigma can't be less than or equal to zero; taking 1");
+    sigma = 1;
+  }
+
   const char *input_path = argv[argc - 2];
   const char *output_path = argv[argc - 1];
 
