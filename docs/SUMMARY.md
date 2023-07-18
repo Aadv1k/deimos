@@ -10,3 +10,4 @@
 * [Edge Detection](edge-detection/README.md)
   * [Sharpening](edge-detection/sharpening.md)
   * [Laplacian filter](edge-detection/laplacian-filter.md)
+* [Thresholding](thresholding.md)

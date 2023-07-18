@@ -56,5 +56,6 @@ void cv_apply_otsu_threshold(Image *img) {
             optimalThreshold = i;
         }
     }
+
     cv_apply_global_threshold(img, optimalThreshold);
 }
