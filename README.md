@@ -56,9 +56,9 @@ cd cv.c/
 > The filters are un-optimized, they work best on smaller images
 
 ```console
-.\cv --gray ..\data\gex.png .\output.png
-.\cv --sharpen --sigma 3 ..\data\gex.png .\output.png
-.\cv --gray --blur --kernel 9 --sigma 5 ..\data\gex.png .\output.png
+.\cv gray ..\data\img1.jpg .\output.png
+.\cv sharpen --sigma 3 ..\data\img1.jpg .\output.png
+.\cv blur --kernel 9 --sigma 5 ..\data\img1.jpg .\output.png
 ```
 
 ## Usage
@@ -96,7 +96,7 @@ Options:
 ### Gaussian blur
 
 ```bash
-.\bin\cv --blur --kernel 9 --sigma 3 .\data\img1.jpg .\img1-gaussian-3-9.png
+.\bin\cv blur --kernel 9 --sigma 3 .\data\img1.jpg .\img1-gaussian-3-9.png
 ```
 
 <div>
@@ -107,7 +107,7 @@ Options:
 ### Median filter
 
 ```bash
-.\bin\cv --median --kernel 9 .\data\img1.jpg ..\output.jpg
+.\bin\cv median --kernel 9 .\data\img1.jpg ..\output.jpg
 ```
 
 <div>
@@ -118,7 +118,7 @@ Options:
 ### Unsharp mask
 
 ```bash
-.\bin\cv --sharpen --kernel 9 --sigma 1.2 .\data\img1.jpg ..\output.jpg
+.\bin\cv sharpen --kernel 9 --sigma 1.2 .\data\img1.jpg ..\output.jpg
 ```
 
 <div>
@@ -129,7 +129,7 @@ Options:
 ### Laplacian filter
 
 ```shell
-.\bin\cv --laplacian --kernel 3 --sigma 1.5 .\data\img1.jpg .\output.jpg
+.\bin\cv laplacian --kernel 3 --sigma 1.5 .\data\img1.jpg .\output.jpg
 ```
 
 <div>
