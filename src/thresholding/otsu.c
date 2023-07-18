@@ -1,6 +1,7 @@
 #include "../include/thresholding/otsu.h"
 #include "../include/thresholding/global.h"
 #include "../include/smoothing/grayscale.h"
+#include "../include/logging.h"
 
 #include <assert.h>
 #include <math.h>
@@ -10,52 +11,45 @@
 
 void cv_apply_otsu_threshold(Image *img) {
     cv_apply_grayscale(img);
-    assert(img->channels == 1 && "Image must be grayscale");
 
-    int height = img->height;
-    int width = img->width;
+    int imgLength = img->width * img->height * img->channels;
 
     int histogram[GRAYSCALE] = {0};
-    for (int i = 0; i < width * height; i++) {
-        histogram[img->bytes[i]]++;
+    for (int i = 0; i < imgLength; i++) {
+      histogram[img->bytes[i]]++;
     }
 
-    int totalSum = 0;
-    int sumSquares = 0;
-    int totalPixels = width * height;
-
+    float normHistogram[GRAYSCALE] = {0};
     for (int i = 0; i < GRAYSCALE; i++) {
-        totalSum += i * histogram[i];
-        sumSquares += i * i * histogram[i];
+      normHistogram[i] = (float)histogram[i] / imgLength;
     }
+
+    float cumulativeSum = normHistogram[0],
+        cumulativeMean = 0.0;
+
+    float globalMean = 0.0,
+      classVariance = 0.0,
+      maxVariance = 0.0;
 
     int optimalThreshold = 0;
-    double maximalVariance = -1.0;
 
     for (int i = 0; i < GRAYSCALE; i++) {
-        int bgPixels = 0;
-        int bgSum = 0;
+      cumulativeSum += normHistogram[i];
+      cumulativeMean += i * normHistogram[i];
 
-        for (int j = 0; j <= i; j++) {
-            bgPixels += histogram[j];
-            bgSum += j * histogram[j];
-        }
+      globalMean = cumulativeMean;
 
-        int fgPixels = totalPixels - bgPixels;
-        if (fgPixels == 0) {
-            continue;
-        }
+      float mean1 = cumulativeMean / cumulativeSum,
+            mean2 = (globalMean - cumulativeMean) / (1 - cumulativeSum);
 
-        double bgMean = (double)bgSum / bgPixels;
-        double fgMean = (double)(totalSum - bgSum) / fgPixels;
+      classVariance = cumulativeSum * (1 - cumulativeSum) * (mean1 - mean2) *  (mean1 - mean2);
 
-        double variance = (double)(bgPixels * fgPixels) * pow(bgMean - fgMean, 2);
-
-        if (variance > maximalVariance) {
-            maximalVariance = variance;
-            optimalThreshold = i;
-        }
+      if (classVariance > maxVariance) {
+        maxVariance = classVariance;
+        optimalThreshold = i;
+      }
     }
 
+    CV_INFO("Applying optimal threshold of %d\n", optimalThreshold);
     cv_apply_global_threshold(img, optimalThreshold);
 }
