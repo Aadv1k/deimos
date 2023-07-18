@@ -11,6 +11,7 @@ SRCS := $(wildcard $(SRC_DIR)/*.c)
 SRCS += $(wildcard $(SRC_DIR)/smoothing/*.c)
 SRCS += $(wildcard $(SRC_DIR)/edge-detection/*.c)
 SRCS += $(wildcard $(SRC_DIR)/thresholding/*.c)
+SRCS += $(wildcard $(SRC_DIR)/feature-extraction/*.c)
 
 OBJS := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 

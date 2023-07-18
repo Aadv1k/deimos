@@ -17,6 +17,8 @@
 #include "include/thresholding/global.h"
 #include "include/thresholding/otsu.h"
 
+#include "include/feature-extraction/harris.h"
+
 #include "include/logging.h"
 
 void usage(const char *caller) {
@@ -29,6 +31,7 @@ void usage(const char *caller) {
   printf("\t%s --sharpen --sigma 0.6 --kernel 3 input.png output.png\n", caller);
   printf("Options:\n");
   printf("\t--help                print this help message\n");
+  printf("\t--harris-corners      detect corners within the image via Harris corner detection");
   printf("\t--blur, --gaussian    apply gaussian blur to the image\n");
   printf("\t--median              apply median filter to the image\n");
   printf("\t--sobel               apply sobel filter to the image\n");
@@ -61,6 +64,7 @@ int main(int argc, char **argv) {
   int enableSobel = 0;
   int enableGlobalThreshold = 0;
   int enableOtsuThreshold = 0;
+  int enableHarris = 0;
 
   int cmdc = 0;
 
@@ -75,6 +79,9 @@ int main(int argc, char **argv) {
       cmdc++;
     } else if (strcmp(current, "--bilateral") == 0)  {
       enableBilateral = 1;
+      cmdc++;
+    } else if (strcmp(current, "--harris-corners") == 0)  {
+      enableHarris = 1;
       cmdc++;
     } else if (strcmp(current, "--median") == 0) {
       enableMedian = 1;
@@ -146,6 +153,11 @@ int main(int argc, char **argv) {
 
   Image img = {.path = input_path};
   cv_load_image(&img);
+
+  if (enableHarris) {
+    CV_INFO("extracting corners via Harris corner detection");
+    cv_harris_detect_corners(&img);
+  }
 
   if (enableGrayscale) {
     CV_INFO("converting image to grayscale");
