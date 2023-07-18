@@ -41,9 +41,9 @@ void cv_apply_global_threshold(Image * img, int threshold) {
 
 <div>
 
-<figure><img src="../.gitbook/assets/img1.jpg" alt=""><figcaption><p>Original image</p></figcaption></figure>
+<figure><img src=".gitbook/assets/img1.jpg" alt=""><figcaption><p>Original image</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/global-threshold-128.jpg" alt=""><figcaption><p>Global Threshold of 128</p></figcaption></figure>
+<figure><img src=".gitbook/assets/global-threshold-128.jpg" alt=""><figcaption><p>Global Threshold of 128</p></figcaption></figure>
 
 </div>
 
