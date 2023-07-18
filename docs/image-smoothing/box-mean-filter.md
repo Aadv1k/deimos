@@ -12,7 +12,7 @@ or a less obtuse way to imply the same
 SUM(array)/LENGTH(array)
 ```
 
-Mean filter works by assigning the current pixel to the mean of all it's surrounding pixels, which effectively results in a blurred effect.
+Mean filter works by assigning the current pixel to the mean of all its surrounding pixels, which effectively results in a blurred effect.
 
 ## Implementation
 
@@ -23,15 +23,15 @@ void cv_apply_box_filter(Image * img, int kernSize) {
   /* ... */
 
   for (int i = 0; i < height; i++) {
-    for (int j = 0; j < width; j++) {
-      unsigned char R = compute_mean_for_channel(img, kernSize, j, i, 0);
-      unsigned char G = compute_mean_for_channel(img, kernSize, j, i, 1);
-      unsigned char B = compute_mean_for_channel(img, kernSize, j, i, 2);
+	for (int j = 0; j < width; j++) {
+  	unsigned char R = compute_mean_for_channel(img, kernSize, j, i, 0);
+  	unsigned char G = compute_mean_for_channel(img, kernSize, j, i, 1);
+  	unsigned char B = compute_mean_for_channel(img, kernSize, j, i, 2);
 
-      tempBytes[(i * width + j) * ch + 0] = R;
-      tempBytes[(i * width + j) * ch + 1] = G;
-      tempBytes[(i * width + j) * ch + 2] = B;
-    }
+  	tempBytes[(i * width + j) * ch + 0] = R;
+  	tempBytes[(i * width + j) * ch + 1] = G;
+  	tempBytes[(i * width + j) * ch + 2] = B;
+	}
   }
 
   /* ... */
@@ -46,10 +46,10 @@ unsigned char compute_mean_for_channel(Image * img, int size, int x, int y, int 
   /* ... */
 
   for (int i = 0; i < size; i++) {
-    for (int j = 0; j < size; j++) {
-      sum += img->bytes[((y + i) * img->width + j + x) * img->channels + c];
-      count++;
-    }
+	for (int j = 0; j < size; j++) {
+  	sum += img->bytes[((y + i) * img->width + j + x) * img->channels + c];
+  	count++;
+	}
   }
 
   /* ... */
@@ -77,7 +77,7 @@ My apologies if this code isn't very clear, all we doing is for the index provid
 
 ## Problems
 
-And that is it. So are we done? is the problem of blurring things solved? No, this filter has some shortcomings, notably.
+And that is it. So are we done? Is the problem of blurring things solved? No, this filter has some shortcomings, notably.
 
 > it can't distinguish sharper features within the image as relevant, it instead applies a uniform blur over the entire image
 

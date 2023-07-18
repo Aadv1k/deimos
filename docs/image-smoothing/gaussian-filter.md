@@ -1,6 +1,6 @@
 # Gaussian Filter
 
-The Gaussian blur is one of the most popular blurring algorithms, where even applications like Photoshop and Gimp use it as their primary implementation. The Gaussian blur applies the  **Gaussian** or **Normal distribution** which is a function in statistics which distributes values given a `N` across a bell curve, over the pixel values contained within the kernel.&#x20;
+The Gaussian blur is one of the most popular blurring algorithms, where even applications like Photoshop and Gimp use it as their primary implementation. The Gaussian blur applies the  **Gaussian** or **Normal distribution** which is a function in statistics which distributes values given a `N` across a bell curve, over the pixel values contained within the kernel.
 
 
 $$
@@ -14,7 +14,7 @@ yet again let's unpack this
 EXP^(-(x-MEAN)^2/2 * SIGMA ^2
 ```
 
-What this function is essentially doing is giving us some value which is contained within a "bell curve" this curve is determined by the  SIGMA and the MEAN. If this sounds too complicated, it's because it is, so let's jump into the code to see what's going on.&#x20;
+What this function is essentially doing is giving us some value which is contained within a "bell curve" ; this curve is determined by the  SIGMA and the MEAN. If this sounds too complicated, it's because it is, so let's jump into the code to see what's going on.
 
 ### Implementation
 
@@ -26,25 +26,25 @@ void cv_apply_gaussian_blur(Image *image, float sigma, int size) {
   cv_compute_gaussian_kernel(&kernel, sigma, SIZE);
 
   for (int i = 0; i < image->height; i++) {
-    for (int j = 0; j < image->width; j++) {
-      for (int c = 0; c < image->channels; c++) {
-        for (int k = 0; k < SIZE; k++) {
-          for (int l = 0; l < SIZE; l++) {
-            /* ... */
+	for (int j = 0; j < image->width; j++) {
+  	for (int c = 0; c < image->channels; c++) {
+    	for (int k = 0; k < SIZE; k++) {
+      	for (int l = 0; l < SIZE; l++) {
+        	/* ... */
 
-            float weight = kernel[k][l];
-            int pixelIndex = (yIndex * image->width + xIndex) * image->channels + c;
-            unsigned char pixelValue = imageBytes[pixelIndex];
+        	float weight = kernel[k][l];
+        	int pixelIndex = (yIndex * image->width + xIndex) * image->channels + c;
+        	unsigned char pixelValue = imageBytes[pixelIndex];
 
-            sum += pixelValue * weight;
-            sumWeight += weight;
-          }
-        }
+        	sum += pixelValue * weight;
+        	sumWeight += weight;
+      	}
+    	}
 
-        int pixelIndex = (i * image->width + j) * image->channels + c;
-        newImageBytes[pixelIndex] = (unsigned char)(sum / sumWeight);
-      }
-    }
+    	int pixelIndex = (i * image->width + j) * image->channels + c;
+    	newImageBytes[pixelIndex] = (unsigned char)(sum / sumWeight);
+  	}
+	}
   }
 
   /* ... */
@@ -52,9 +52,9 @@ void cv_apply_gaussian_blur(Image *image, float sigma, int size) {
 
 ```
 
-Stay with me here - We have a kernel of `N` size, we go through each cell of the kernel and assign a value, we compute this value from `sigma` modifer along with the X, and Y co-ordinates of the pixel.&#x20;
+Stay with me here - We have a kernel of `N` size, we go through each cell of the kernel and assign a value, we compute this value from `sigma` modifier along with the X, and Y coordinates of the pixel.
 
-We then multiply the kernels's value from the neighbours of the current pixel. After this point the process is similarr to the **Mean filter** where we sum all the (weighted) values that come within kernel bounds and divide them. That produces the following output.
+We then multiply the kernels's value from the neighbours of the current pixel. After this point the process is similar to the **Mean filter** where we sum all the (weighted) values that come within kernel bounds and divide them. That produces the following output.
 
 ### Result
 

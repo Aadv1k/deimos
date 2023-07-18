@@ -2,7 +2,7 @@
 
 We previously described how the Median filter is poor at performance and bilateral filter is a good supplement to it, to understand why we must look at how the filter works.
 
-The bilateral function takes in a `sigma` this describes the intensity of the smoothing similar to [Gaussian Blur](./gaussian-blur.md) and the kernel size. We then loop through each pixel, and we will subtract each of it's neighbour with the current pixel, we will multiply this with a "weight" and se tthe current pixel to the mean of the value. That is a bit convoluted (ha!) but let's see the implementation.
+The bilateral function takes in a `sigma` this describes the intensity of the smoothing similar to [Gaussian Blur](./gaussian-blur.md) and the kernel size. We then loop through each pixel, and we will subtract each of its neighbours with the current pixel, we will multiply this with a "weight" and set the current pixel to the mean of the value. That is a bit convoluted (ha!) but let's see the implementation.
 
 ## Implementation
 
@@ -14,52 +14,52 @@ void cv_apply_bilateral_filter(Image* img, float sigma, int kernSize) {
   unsigned char* tempBytes = (unsigned char*)malloc(width * height * ch * sizeof(unsigned char));
 
   for (int i = 0; i < height; i++) {
-    for (int j = 0; j < width; j++) {
-      unsigned char R = compute_bilateral_filter_for_channel(img, sigma, kernSize, j, i, 0);
-      unsigned char G = compute_bilateral_filter_for_channel(img, sigma, kernSize, j, i, 1);
-      unsigned char B = compute_bilateral_filter_for_channel(img, sigma, kernSize, j, i, 2);
+	for (int j = 0; j < width; j++) {
+  	unsigned char R = compute_bilateral_filter_for_channel(img, sigma, kernSize, j, i, 0);
+  	unsigned char G = compute_bilateral_filter_for_channel(img, sigma, kernSize, j, i, 1);
+  	unsigned char B = compute_bilateral_filter_for_channel(img, sigma, kernSize, j, i, 2);
 
-      tempBytes[(i * width + j) * ch + 0] = R;
-      tempBytes[(i * width + j) * ch + 1] = G;
-      tempBytes[(i * width + j) * ch + 2] = B;
-    }
+  	tempBytes[(i * width + j) * ch + 0] = R;
+  	tempBytes[(i * width + j) * ch + 1] = G;
+  	tempBytes[(i * width + j) * ch + 2] = B;
+	}
   }
   /* ... */
 }
 
 ```
 
-It's pretty apparent what we are doing here. Let's check the actual bilateral computation 
+It's pretty apparent what we are doing here. Let's check the actual bilateral computation
 
 ```c
 unsigned char compute_bilateral_filter_for_channel(Image* img, float sigma, int kernSize, int x, int y, int c) {
-    /* ... */ 
-    for (int i = 0; i < kernSize; i++) {
-        for (int j = 0; j < kernSize; j++) {
-            if (y + i >= height || x + j >= width)
-                continue;
+	/* ... */
+	for (int i = 0; i < kernSize; i++) {
+    	for (int j = 0; j < kernSize; j++) {
+        	if (y + i >= height || x + j >= width)
+            	continue;
 
-            int currentNeighbour = img->bytes[((y + i) * width + x + j) * ch + c];
-            int diff = centerValue - currentNeighbour;
+        	int currentNeighbour = img->bytes[((y + i) * width + x + j) * ch + c];
+        	int diff = centerValue - currentNeighbour;
 
-            float rangeWeight = exp(-(diff * diff) / (2 * sigma * sigma));
+        	float rangeWeight = exp(-(diff * diff) / (2 * sigma * sigma));
 
-            totalWeightedSum += rangeWeight * currentNeighbour;
-            totalSum += rangeWeight;
-        }
-    }
-    return (unsigned char)(totalWeightedSum / totalSum);
+        	totalWeightedSum += rangeWeight * currentNeighbour;
+        	totalSum += rangeWeight;
+    	}
+	}
+	return (unsigned char)(totalWeightedSum / totalSum);
 }
 ```
 
 So let's break down what's going on here
 
 - We loop through the neighbours of the `centerValue`
-- We then extract the difference of center value and the current neighbour
+- We then extract the difference of centre value and the current neighbour
 - From the difference we extract a `rangeWeight` this will define how "sharp" our smoothing is
 - `totalWeightedSum` is the sum of product of weight and current neighbour
 - `totalSum` is just the sum of the weights
-- We divide the above values and return it. This division is done to "normalize" the image so that it maintains the initial brightness or **photometric symmetry**, a fancier way to say that image shares properites with it's previous state.
+- We divide the above values and return it. This division is done to "normalise" the image so that it maintains the initial brightness or **photometric symmetry**, a fancier way to say that an image shares properties with its previous state.
 
 From this we achieve the following result
 
@@ -77,7 +77,7 @@ From this we achieve the following result
 
 </div>
 
-The performace of this algorithm is a lot better than the one previously discussed.
+The performance of this algorithm is a lot better than the one previously discussed.
 
 ```
 Bilateral filter

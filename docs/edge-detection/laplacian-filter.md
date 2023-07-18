@@ -1,6 +1,6 @@
 # Laplacian Filter
 
-The Laplacian is a "Second-Order Derivative filter" this means that is operates upon a convolution and not a image. There are several methods to implement Laplacian filter but given the context of this module we are going to be using the DoG or Difference of Gaussian method, and it is what it sounds like, it words by subtracting a image of lower Gaussian sigma by a higher one, effectively giving us the difference. As we recall previously, we did something similar in the sharpening algorithm, except the [minuend](https://www.mathsisfun.com/definitions/minuend.html) was the base image, in this case its a blurred image of a smaller sigma. 
+The Laplacian is a "Second-Order Derivative filter" ; this means that it operates upon a convolution and not an image. There are several methods to implement Laplacian filter but given the context of this module we are going to be using the DoG or Difference of Gaussian method, and it is what it sounds like, it words by subtracting a image of lower Gaussian sigma by a higher one, effectively giving us the difference. As we recall previously, we did something similar in the sharpening algorithm, except the [minuend](https://www.mathsisfun.com/definitions/minuend.html) was the base image, in this case it's a blurred image of a smaller sigma.
 
 > **Note**
 > If you are having trouble understanding this, I suggest you to refresh upon the [Gaussian Filter](../image-smoothing/gaussian-filter.md)
@@ -18,29 +18,29 @@ void cv_apply_laplacian_filter(Image* img, float sigma, int kernSize) {
   int kernSize1 = kernSize * 1.5 + 1;
 
   cv_apply_gaussian_blur(img, sigma1, kernSize1);
-  
+ 
   /* ... */
 
   cv_apply_gaussian_blur(&copiedImage, sigma, kernSize);
 
   for (int i = 0; i < height; i++) {
-    for (int j = 0; j < width; j++) {
-      for (int c = 0; c < channels; c++) {
-        int index = (i * width + j) * channels + c;
-        img->bytes[index] = img->bytes[index] - copiedImage.bytes[index];
-      }
-    }
+	for (int j = 0; j < width; j++) {
+  	for (int c = 0; c < channels; c++) {
+    	int index = (i * width + j) * channels + c;
+    	img->bytes[index] = img->bytes[index] - copiedImage.bytes[index];
+  	}
+	}
   }
 
   /* ... */
 }
 ```
 
-- We compute a differnt `sigma1`, and `kernSize1` since we don't want the user to specify both of these. `kernSize * 1.5 + 1` is really arbitiary and I suggest you mess around with differnt variations.
+- We compute a different `sigma1`, and `kernSize1` since we don't want the user to specify both of these. `kernSize * 1.5 + 1` is really arbitrary and I suggest you mess around with different variations.
 
 - We loop through and subtract the less blurred image from the one which is more blurred.
 
-And that is really it! let's look at what this produces.
+And that is really it! Let's look at what this produces.
 
 ## Result
 
