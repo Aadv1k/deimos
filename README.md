@@ -103,25 +103,23 @@ Options:
 
 ### Gaussian blur
 
-```bash
+```console
 .\bin\cv blur --kernel 9 --sigma 3 .\data\img1.jpg .\img1-gaussian-3-9.png
 ```
 
-<div>
-  <img src="./docs/.gitbook/assets/img1.jpg" width="50%" align="left">
-  <img src="./docs/.gitbook/assets/gaussian-3-9.jpg" width="50%">
-</div>
+| Original Image | Gaussian Blur |
+| --- | --- |
+| ![Original Image](./docs/.gitbook/assets/img1.jpg) | ![Gaussian Blur](./docs/.gitbook/assets/gaussian-3-9.jpg) |
 
 ### Median filter
 
-```bash
+```console
 .\bin\cv median --kernel 9 .\data\img1.jpg ..\output.jpg
 ```
 
-<div>
-  <img src="./docs/.gitbook/assets/img1.jpg" width="50%" align="left">
-  <img src="./docs/.gitbook/assets/median-9.jpg" width="50%">
-</div>
+| Original Image | Median Filter |
+| --- | --- |
+| ![Original Image](./docs/.gitbook/assets/img1.jpg) | ![Median Filter](./docs/.gitbook/assets/median-9.jpg) |
 
 ### Unsharp mask
 
@@ -129,10 +127,10 @@ Options:
 .\bin\cv sharpen --kernel 9 --sigma 1.2 .\data\img1.jpg ..\output.jpg
 ```
 
-<div>
-  <img src="./docs/.gitbook/assets/img1.jpg" width="50%" align="left">
-  <img src="./docs/.gitbook/assets/sharpen-1-9.jpg" width="50%">
-</div>
+
+| Original Image | Unsharp Mask |
+| --- | --- |
+| ![Original Image](./docs/.gitbook/assets/img1.jpg) | ![Unsharp Mask](./docs/.gitbook/assets/sharpen-1-9.jpg) |
 
 ### Laplacian filter
 
@@ -140,9 +138,10 @@ Options:
 .\bin\cv laplacian --kernel 3 --sigma 1.5 .\data\img1.jpg .\output.jpg
 ```
 
-<div>
-  <img src="./docs/.gitbook/assets/img1.jpg" width="50%" align="left">
-  <img src="./docs/.gitbook/assets/laplacian-1-3.jpg" width="50%">
+| Original Image | Laplacian Filter |
+| --- | --- |
+| ![Original Image](./docs/.gitbook/assets/img1.jpg) | ![Laplacian Filter](./docs/.gitbook/assets/laplacian-1-3.jpg) |
+
 </div>
 
 
