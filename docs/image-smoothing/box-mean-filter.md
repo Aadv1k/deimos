@@ -62,7 +62,7 @@ My apologies if this code isn't very clear, all we doing is for the index provid
 
 ## Result
 
-<pre class="language-bash"><code class="lang-bash"><strong>.\bin\cv.exe  --mean --kernel 9 .\data\img1.jpg .\img1-mean-9.png
+<pre class="language-bash"><code class="lang-bash"><strong>.\bin\cv.exe mean --kernel 9 .\data\img1.jpg .\img1-mean-9.png
 </strong></code></pre>
 
 <div>

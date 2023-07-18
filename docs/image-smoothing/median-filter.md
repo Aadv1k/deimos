@@ -84,7 +84,7 @@ unsigned char calculate_median(unsigned char* pixelValues, int size) {
 ## Result
 
 ```bash
-.\bin\cv --median --kernel 9 .\data\img1.jpg ..\output.jpg
+.\bin\cv median --kernel 9 .\data\img1.jpg ..\output.jpg
 ```
 
 <div>

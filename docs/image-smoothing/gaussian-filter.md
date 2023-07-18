@@ -59,7 +59,7 @@ We then multiply the kernels's value from the neighbours of the current pixel. A
 ### Result
 
 ```sh
-.\bin\cv --blur --kernel 9 --sigma 3 .\data\img1.jpg .\img1-gaussian-3-9.png
+.\bin\cv blur --kernel 9 --sigma 3 .\data\img1.jpg .\img1-gaussian-3-9.png
 ```
 
 <div>
