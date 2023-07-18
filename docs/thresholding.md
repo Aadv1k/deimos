@@ -60,8 +60,7 @@ The Otsu threshold implementation works by calculating a class variance between 
 
 ### Implementation
 
-The Otsu algorithm is implemented at [src/thresholding/otsu.c](src/thresholding/otsu.c)
-
+The Otsu algorithm is implemented at [src/thresholding/otsu.c](../src/thresholding/otsu.c)
 
 
 ```c
@@ -120,6 +119,8 @@ classVariance =
 ```
 
 - To find the threshold, we need to find the max variance, so we store the variance in a `maxVariance` and if the current is higher than previous, we re-set the variable and set the threshold accordingly.
+
+Finally, we use the the previous Global Threshold function to apply the results to the image 
 
 ### Result
 
