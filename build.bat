@@ -6,7 +6,7 @@ SET CC=gcc
 SET CFLAGS=-Wall -Werror -Wextra -std=c99
 SET LIB=-lm
 
-SET SRCS=src/main.c src/image.c src/smoothing/*.c src/edge-detection/*.c src/thresholding/*.c src/feature-detection/*.c
+SET SRCS=src/main.c src/image.c src/smoothing/*.c src/edge-detection/*.c src/thresholding/*.c src/feature-extraction/*.c
 
 SET INCLUDE_DIR=src/include
 
