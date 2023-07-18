@@ -66,26 +66,34 @@ cd cv.c/
 ```console
 $ ./cv.exe
 Usage:
-        cv.exe <args> input output
-Examples:
-        cv.exe --blur --sigma 3.4 --kernel 5 input.png output.png
-        cv.exe --gray input.png output.png
-        cv.exe --median --kernel 3 input.png output.png
-        cv.exe --sharpen --sigma 0.6 --kernel 3 input.png output.png
+  C:\Users\Aadv1k\Desktop\cv.c\bin\cv.exe <command> <args> input output
+
+Commands:
+  Smoothing:
+    blur, gaussian    Apply Gaussian blur to the image.
+    median            Apply median filter to the image.
+    bilateral         Apply bilateral filter to the image.
+    box, mean         Apply box filter onto the image.
+
+  Edge Detection:
+    sobel             Apply Sobel filter to the image.
+    laplacian         Apply Laplacian filter onto the image.
+    sharpen           Sharpen image via an unsharp mask.
+
+  Thresholding:
+    global-threshold  Apply the global threshold filter over the image. 'sigma' would be the threshold.
+    otsu-threshold    Apply Otsu's threshold filter over the image.
+
+  Feature Extraction:
+    harris-corners    Detect corners within the image via Harris corner detection.
+
+Other Commands:
+    gray              Convert image to grayscale.
+    help              Print this help message.
+
 Options:
-        --help                print this help message
-        --blur, --gaussian    apply gaussian blur to the image
-        --median              apply median filter to the image
-        --sobel               apply sobel filter to the image
-        --bilateral           apply bilateral filter to the image
-        --box, --mean         apply box filter onto the image
-        --laplacian           apply laplacian filter onto the image
-        --gray                convert image to grayscale
-        --sharpen             sharpen image via an unsharp mask
-        --global-threshold    apply the global threshold filter over the image, `sigma` would be the threshold
-        --otsu-threshold      apply the Otsu's threshold filter over the image
-        --sigma               specify the sigma for the convolutions
-        --kernel              define the kernel size for convolutions (if applicable)
+  --sigma             Specify the primary modifier for the convolutions.
+  --kernel            Define the kernel size for convolutions (if applicable).
 ```
 
 ## Gallery
