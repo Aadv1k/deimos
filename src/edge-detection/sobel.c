@@ -39,7 +39,11 @@ void cv_apply_sobel_filter(Image* img, int magnitude) {
       }
 
       int gradientMagnitude = sqrt((sumX * sumX) + (sumY * sumY));
-      //int gradientDirection = atan2(sumY, sumX);
+
+      if (magnitude == -1) {
+        img->bytes[i * width + j] = gradientMagnitude;
+        continue;
+      }
 
       img->bytes[i * width + j] = gradientMagnitude > magnitude ? 255 : 0;
     }

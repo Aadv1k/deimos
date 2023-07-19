@@ -94,6 +94,7 @@ Other Commands:
 Options:
   --sigma             Specify the primary modifier for the convolutions.
   --kernel            Define the kernel size for convolutions (if applicable).
+  --sobel-disable     Disable specifying a magnitude for the operator, default to setting gradient magnitude
 ```
 
 ## Gallery

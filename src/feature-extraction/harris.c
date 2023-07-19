@@ -6,7 +6,7 @@
 
 void cv_harris_detect_corners(Image * img) {
   cv_apply_grayscale(img);
-  cv_apply_sobel_filter(img);
+  cv_apply_sobel_filter(img, 10);
 
   assert(0 && "Not implemented");
 }

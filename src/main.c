@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 #include "include/image.h"
 
@@ -57,6 +58,7 @@ void usage(const char *caller) {
   printf("Options:\n");
   printf("  --sigma             Specify the primary modifier for the convolutions.\n");
   printf("  --kernel            Define the kernel size for convolutions (if applicable).\n");
+  printf("  --sobel-disable     Disable specifying a magnitude for the operator, default to setting gradient magnitude \n");
 }
 
 int main(int argc, char *argv[]) {
@@ -72,6 +74,8 @@ int main(int argc, char *argv[]) {
   int kernelSize = 3;
   char *input_path = NULL;
   char *output_path = NULL;
+
+  bool sobelDisable = false;
 
   for (int i = 2; i < argc; i++) {
     if (strcmp(argv[i], "--sigma") == 0) {
@@ -90,6 +94,8 @@ int main(int argc, char *argv[]) {
         CV_ERROR("--kernel requires a value.");
         exit(1);
       }
+    } else if (strcmp(argv[i], "--sobel-disable") == 0) {
+      sobelDisable = true;
     } else {
       if (!input_path) {
         input_path = argv[i];
@@ -137,8 +143,8 @@ int main(int argc, char *argv[]) {
     CV_INFO("applying Laplacian filter of strength %.2f, kernel size %d", sigma, kernelSize);
     cv_apply_laplacian_filter(&img, sigma, kernelSize);
   } else if (strcmp(operation, "sobel") == 0) {
-    CV_INFO("applying Sobel filter of magnitude %d", (int)sigma);
-    cv_apply_sobel_filter(&img, (int)sigma);
+    CV_INFO("applying Sobel filter of magnitude %d", sobelDisable ? -1 : (int)sigma);
+    cv_apply_sobel_filter(&img, sobelDisable ? -1 : (int)sigma);
   } else if (strcmp(operation, "sharpen") == 0) {
     CV_INFO("applying sharpening of strength %.2f, kernel size %d", sigma, kernelSize);
     cv_apply_sharpening(&img, sigma, kernelSize);
