@@ -3,80 +3,45 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include <stdio.h>
 
-unsigned char compute_sobel_from_pixel_3x3(Image* img, int x, int y) {
-  int width = img->width;
-  int resultX = 0;
-  int resultY = 0;
+#define SOBEL_K_SIZE 3
 
-  int sobelX[3][3] = {
-    {-1, 0, 1},
-    {-2, 0, 2},
-    {-1, 0, 1}
-  };
 
-  int sobelY[3][3] = {
-    {-1, -2, -1},
-    {0, 0, 0},
-    {1, 2, 1}
-  };
+static int kernelX[SOBEL_K_SIZE][SOBEL_K_SIZE] = {
+  {-1, 0, 1},
+  {-2, 0, 2},
+  {-1, 0, 1}
+};
 
-  for (int i = 0; i < 3; i++) {
-    for (int j = 0; j < 3; j++) {
-      int currentPixel = img->bytes[(y + i) * width + (x + j)];
-      resultX += currentPixel * sobelX[i][j];
-      resultY += currentPixel * sobelY[i][j];
-    }
-  }
+static int kernelY[SOBEL_K_SIZE][SOBEL_K_SIZE] = {
+  {-1, -2, -1},
+  {0, 0, 0},
+  {1, 2, 1}
+};
 
-  int gradient = abs(resultX) + abs(resultY);
-  gradient = gradient > 255 ? 255 : gradient;
-  return (unsigned char)(gradient);
-}
-
-unsigned char compute_sobel_from_pixel_5x5(Image* img, int x, int y) {
-  int width = img->width;
-  int resultX = 0;
-  int resultY = 0;
-
-  int sobelX[5][5] = {
-    {-1, -2, 0, 2, 1},
-    {-4, -8, 0, 8, 4},
-    {-6, -12, 0, 12, 6},
-    {-4, -8, 0, 8, 4},
-    {-1, -2, 0, 2, 1}
-  };
-
-  int sobelY[5][5] = {
-    {-1, -4, -6, -4, -1},
-    {-2, -8, -12, -8, -2},
-    {0, 0, 0, 0, 0},
-    {2, 8, 12, 8, 2},
-    {1, 4, 6, 4, 1}
-  };
-
-  for (int i = 0; i < 5; i++) {
-    for (int j = 0; j < 5; j++) {
-      int pixel = img->bytes[(y + i) * width + (x + j)];
-      resultX += pixel * sobelX[i][j];
-      resultY += pixel * sobelY[i][j];
-    }
-  }
-
-  int gradient = abs(resultX) + abs(resultY);
-  gradient = gradient > 255 ? 255 : gradient;
-  return (unsigned char)(gradient);
-}
-
-void cv_apply_sobel_filter(Image* img) {
+void cv_apply_sobel_filter(Image* img, int magnitude) {
   cv_apply_grayscale(img);
 
-  int width = img->width;
-  int height = img->height;
+  int width = img->width,
+      height = img->height;
 
-  for (int i = 1; i < height - 1; i++) {
-    for (int j = 1; j < width - 1; j++) {
-      img->bytes[i * width + j] = compute_sobel_from_pixel_3x3(img, j, i);
+  for (int i = 1; i <= height - 4; i++) {
+    for (int j = 1; j <= width - 4; j++) {
+      int sumX = 0, sumY = 0;
+
+      for (int x = 0; x < SOBEL_K_SIZE; x++) {
+        for (int y = 0; y < SOBEL_K_SIZE; y++) {
+            int currentPixel = ((i + y) * width) + j + x;
+            sumX += img->bytes[currentPixel] * kernelX[y][x];
+            sumY += img->bytes[currentPixel] * kernelY[y][x];
+        }
+      }
+
+      int gradientMagnitude = sqrt((sumX * sumX) + (sumY * sumY));
+      //int gradientDirection = atan2(sumY, sumX);
+
+      img->bytes[i * width + j] = gradientMagnitude > magnitude ? 255 : 0;
     }
   }
 }

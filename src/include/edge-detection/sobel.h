@@ -3,6 +3,6 @@
 
 #include "../image.h"
 
-void cv_apply_sobel_filter(Image * img);
+void cv_apply_sobel_filter(Image * img, int magnitude);
 
 #endif

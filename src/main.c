@@ -137,8 +137,8 @@ int main(int argc, char *argv[]) {
     CV_INFO("applying Laplacian filter of strength %.2f, kernel size %d", sigma, kernelSize);
     cv_apply_laplacian_filter(&img, sigma, kernelSize);
   } else if (strcmp(operation, "sobel") == 0) {
-    CV_INFO("applying Sobel filter");
-    cv_apply_sobel_filter(&img);
+    CV_INFO("applying Sobel filter of magnitude %d", (int)sigma);
+    cv_apply_sobel_filter(&img, (int)sigma);
   } else if (strcmp(operation, "sharpen") == 0) {
     CV_INFO("applying sharpening of strength %.2f, kernel size %d", sigma, kernelSize);
     cv_apply_sharpening(&img, sigma, kernelSize);
