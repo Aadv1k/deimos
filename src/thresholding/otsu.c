@@ -1,7 +1,7 @@
 #include "../include/thresholding/otsu.h"
-#include "../include/thresholding/global.h"
-#include "../include/smoothing/grayscale.h"
 #include "../include/logging.h"
+#include "../include/smoothing/grayscale.h"
+#include "../include/thresholding/global.h"
 
 #include <assert.h>
 #include <math.h>
@@ -16,38 +16,35 @@ void cv_apply_otsu_threshold(Image *img) {
 
     int histogram[GRAYSCALE] = {0};
     for (int i = 0; i < imgLength; i++) {
-      histogram[img->bytes[i]]++;
+        histogram[img->bytes[i]]++;
     }
 
     float normHistogram[GRAYSCALE] = {0};
     for (int i = 0; i < GRAYSCALE; i++) {
-      normHistogram[i] = (float)histogram[i] / imgLength;
+        normHistogram[i] = (float)histogram[i] / imgLength;
     }
 
-    float cumulativeSum = normHistogram[0],
-        cumulativeMean = 0.0;
+    float cumulativeSum = normHistogram[0], cumulativeMean = 0.0;
 
-    float globalMean = 0.0,
-      classVariance = 0.0,
-      maxVariance = 0.0;
+    float globalMean = 0.0, classVariance = 0.0, maxVariance = 0.0;
 
     int optimalThreshold = 0;
 
     for (int i = 0; i < GRAYSCALE; i++) {
-      cumulativeSum += normHistogram[i];
-      cumulativeMean += i * normHistogram[i];
+        cumulativeSum += normHistogram[i];
+        cumulativeMean += i * normHistogram[i];
 
-      globalMean = cumulativeMean;
+        globalMean = cumulativeMean;
 
-      float mean1 = cumulativeMean / cumulativeSum,
-            mean2 = (globalMean - cumulativeMean) / (1 - cumulativeSum);
+        float mean1 = cumulativeMean / cumulativeSum,
+              mean2 = (globalMean - cumulativeMean) / (1 - cumulativeSum);
 
-      classVariance = cumulativeSum * (1 - cumulativeSum) * (mean1 - mean2) *  (mean1 - mean2);
+        classVariance = cumulativeSum * (1 - cumulativeSum) * (mean1 - mean2) * (mean1 - mean2);
 
-      if (classVariance > maxVariance) {
-        maxVariance = classVariance;
-        optimalThreshold = i;
-      }
+        if (classVariance > maxVariance) {
+            maxVariance = classVariance;
+            optimalThreshold = i;
+        }
     }
 
     CV_INFO("Applying optimal threshold of %d\n", optimalThreshold);

@@ -11,19 +11,19 @@
 #include "include/logging.h"
 
 void cv_load_image(Image *image) {
-  image->bytes = (unsigned char *)stbi_load(
-      image->path, &(image->width), &(image->height), &(image->channels), 0);
-  if (image->bytes == NULL) {
-    CV_ERROR("unable to load image %s", image->path);
-    exit(1);
-  }
+    image->bytes = (unsigned char *)stbi_load(image->path, &(image->width), &(image->height),
+                                              &(image->channels), 0);
+    if (image->bytes == NULL) {
+        CV_ERROR("unable to load image %s", image->path);
+        exit(1);
+    }
 }
 
-Image* cv_deepcopy_image(const Image* original) {
-    Image* copy = (Image*)malloc(sizeof(Image));
+Image *cv_deepcopy_image(const Image *original) {
+    Image *copy = (Image *)malloc(sizeof(Image));
 
     int dataSize = original->width * original->height * original->channels;
-    copy->bytes = (unsigned char*)malloc(dataSize);
+    copy->bytes = (unsigned char *)malloc(dataSize);
 
     memcpy(copy->bytes, original->bytes, dataSize);
     copy->path = strdup(original->path);
@@ -33,18 +33,17 @@ Image* cv_deepcopy_image(const Image* original) {
     return copy;
 }
 
-void cv_free_deepcopy_image(Image* img) {
+void cv_free_deepcopy_image(Image *img) {
     free(img->bytes);
-    free((void*)img->path);
+    free((void *)img->path);
     free(img);
 }
 
 void cv_write_image(Image *image, const char *name) {
-  if (stbi_write_jpg(name, image->width, image->height, image->channels,
-                     image->bytes, 0) == 0) {
-    CV_ERROR("unable to write PNG file %s", name);
-    exit(1);
-  }
+    if (stbi_write_jpg(name, image->width, image->height, image->channels, image->bytes, 0) == 0) {
+        CV_ERROR("unable to write PNG file %s", name);
+        exit(1);
+    }
 }
 
 void cv_free_image(Image *image) { free(image->bytes); }

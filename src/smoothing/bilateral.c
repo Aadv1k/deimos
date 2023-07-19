@@ -7,25 +7,26 @@
 #include <math.h>
 
 #ifndef M_PI
-    #define M_PI 3.14159265358979323846
+#define M_PI 3.14159265358979323846
 #endif
- 
-void compute_spatial_kernel(float *** kernel, float sigma, int size) {
-  *kernel = (float**)malloc(sizeof(float**) * size);
 
-  const int sigSq = 2 * sigma * sigma;
-  const int inverseSigmaRoot = 1/(sigma * sqrt(2 * M_PI));
+void compute_spatial_kernel(float ***kernel, float sigma, int size) {
+    *kernel = (float **)malloc(sizeof(float **) * size);
 
-  for (int i = 0; i < size; i++) {
-    (*kernel)[i] = (float*)malloc(sizeof(float) * size);
-    for (int j = 0; j < size; j++) {
-      int y = i - size / 2 , x = j - size / 2;
-      (*kernel)[i][j] = inverseSigmaRoot * exp(-(x * x + y * y)/sigSq);
+    const int sigSq = 2 * sigma * sigma;
+    const int inverseSigmaRoot = 1 / (sigma * sqrt(2 * M_PI));
+
+    for (int i = 0; i < size; i++) {
+        (*kernel)[i] = (float *)malloc(sizeof(float) * size);
+        for (int j = 0; j < size; j++) {
+            int y = i - size / 2, x = j - size / 2;
+            (*kernel)[i][j] = inverseSigmaRoot * exp(-(x * x + y * y) / sigSq);
+        }
     }
-  }
 }
 
-unsigned char compute_bilateral_filter_for_channel(Image* img, float sigma, int kernSize, int x, int y, int c) {
+unsigned char compute_bilateral_filter_for_channel(Image *img, float sigma, int kernSize, int x,
+                                                   int y, int c) {
     int width = img->width;
     int height = img->height;
     int ch = img->channels;
@@ -54,20 +55,20 @@ unsigned char compute_bilateral_filter_for_channel(Image* img, float sigma, int 
     return (unsigned char)(totalWeightedSum / totalSum);
 }
 
-void cv_apply_bilateral_filter(Image* img, float sigma, int kernSize) {
-  int width = img->width;
-  int height = img->height;
-  int ch = img->channels;
+void cv_apply_bilateral_filter(Image *img, float sigma, int kernSize) {
+    int width = img->width;
+    int height = img->height;
+    int ch = img->channels;
 
-  for (int i = 0; i < height; i++) {
-    for (int j = 0; j < width; j++) {
-      unsigned char R = compute_bilateral_filter_for_channel(img, sigma, kernSize, j, i, 0);
-      unsigned char G = compute_bilateral_filter_for_channel(img, sigma, kernSize, j, i, 1);
-      unsigned char B = compute_bilateral_filter_for_channel(img, sigma, kernSize, j, i, 2);
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            unsigned char R = compute_bilateral_filter_for_channel(img, sigma, kernSize, j, i, 0);
+            unsigned char G = compute_bilateral_filter_for_channel(img, sigma, kernSize, j, i, 1);
+            unsigned char B = compute_bilateral_filter_for_channel(img, sigma, kernSize, j, i, 2);
 
-      img->bytes[(i * width + j) * ch + 0] = R;
-      img->bytes[(i * width + j) * ch + 1] = G;
-      img->bytes[(i * width + j) * ch + 2] = B;
+            img->bytes[(i * width + j) * ch + 0] = R;
+            img->bytes[(i * width + j) * ch + 1] = G;
+            img->bytes[(i * width + j) * ch + 2] = B;
+        }
     }
-  }
 }
