@@ -1,8 +1,8 @@
-# Computer Vision in C
+# Deimos
 
-Experimental computer vision library in C
+Deimos is an experimental computer vision library in C
 
-> I am trying to distill my knowledge into the [Robot's guide to seeing the world](https://aadv1k.gitbook.io/cv-guide), as an introductory guide to Computer Vision based on what I would have liked to had before I started learning this. I welcome any critique or suggestions, thanks!
+> I am trying to distill my knowledge into [a computer vision guide](https://aadv1k.gitbook.io/cv-guide), which serves as an introductory guide to this field and goes into details about the algorithms implemented below. I welcome any suggestions/critiques, thanks!
 
 - Smoothing
   - Gaussian blur: higher kernel will lead to more blurring, at the cost of speed
@@ -144,8 +144,3 @@ Options:
 | ![Original Image](./docs/.gitbook/assets/img1.jpg) | ![Laplacian Filter](./docs/.gitbook/assets/laplacian-1-3.jpg) |
 
 </div>
-
-
-## Credits
-
-gex.png: https://www.ign.com/games/gex-enter-the-gecko-gbc/articles
