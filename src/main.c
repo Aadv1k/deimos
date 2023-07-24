@@ -133,7 +133,7 @@ int main(int argc, char *argv[]) {
         CV_INFO("applying bilateral filter of strength %.2f, kernel size %d", sigma, kernelSize);
         cv_apply_bilateral_filter(&img, sigma, kernelSize);
     } else if (strcmp(operation, "harris-corners") == 0) {
-        CV_INFO("extracting corners via Harris corner detection of threshold %f", sigma);
+        CV_INFO("extracting corners via Harris corner detection of threshold %2f", sigma);
         cv_harris_detect_corners(&img, sigma);
     } else if (strcmp(operation, "median") == 0) {
         CV_INFO("applying median filter of kernel size %d", kernelSize);

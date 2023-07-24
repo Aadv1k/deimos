@@ -8,6 +8,7 @@
 #include <stdio.h>
 
 #define SOBEL_K_SIZE 3
+#define HARRIS_K_CONST 0.04
 
 static int kernelX[SOBEL_K_SIZE][SOBEL_K_SIZE] = {
     {-1, 0, 1},
@@ -21,59 +22,39 @@ static int kernelY[SOBEL_K_SIZE][SOBEL_K_SIZE] = {
     {-1, -2, -1}
 };
 
-bool isLocalMaximum(float R, int row, int col, Image* img) {
-    int windowSize = 3;
-    int halfWindow = windowSize / 2;
-
-    for (int i = -halfWindow; i <= halfWindow; i++) {
-        for (int j = -halfWindow; j <= halfWindow; j++) {
-            if (i == 0 && j == 0) continue;
-            int neighborRow = row + i;
-            int neighborCol = col + j;
-            if (neighborRow >= 0 && neighborRow < img->height &&
-                neighborCol >= 0 && neighborCol < img->width) {
-                float neighborR = img->bytes[neighborRow * img->width + neighborCol];
-                if (R <= neighborR) {
-                    return false;
-                }
-            }
-        }
-    }
-    return true;
-}
 
 void cv_harris_detect_corners(Image* img, float threshold) {
     cv_apply_grayscale(img);
-    cv_apply_gaussian_blur(img, 10, 9);
+    cv_apply_gaussian_blur(img, 3, 9);
 
-    for (int i = 1; i < img->height - 1; i++) {
-        for (int j = 1; j < img->width - 1; j++) {
+    int height = img->height,
+        width = img->width;
 
-            int sumX = 0, sumY = 0;
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
 
-            for (int y = 0; y < SOBEL_K_SIZE; y++) {
-                for (int x = 0; x < SOBEL_K_SIZE; x++) {
-                    int currentPixel = ((i + y - 1) * img->width) + (j + x - 1);
-                    sumX += img->bytes[currentPixel] * kernelX[y][x];
-                    sumY += img->bytes[currentPixel] * kernelY[y][x];
-                }
-            }
+        int sumX = 0, sumY = 0;
 
-            float Ixx = sumX * sumX;
-            float Ixy = sumX * sumY;
-            float Iyy = sumY * sumY;
-
-            float k = 0.04;
-            float detM = (Ixx * Iyy) - (Ixy * Ixy);
-            float traceM = Ixx + Iyy;
-            float R = detM - k * (traceM * traceM);
-
-            if (R > threshold) {
-
-                if (isLocalMaximum(R, i, j, img)) {
-                    img->bytes[i * img->width + j] = 0;
-                }
-            }
+        for (int y = 0; y < SOBEL_K_SIZE; y++) {
+          for (int x = 0; x < SOBEL_K_SIZE; x++) {
+            unsigned char currentPixel = img->bytes[(i + y) * width + x + j];
+            sumX += kernelX[y][x] * currentPixel;
+            sumY += kernelY[y][x] * currentPixel;
+          }
         }
+
+
+        int Ixx = sumX * sumX; 
+        int Ixy = sumX * sumY;
+        int Iyy = sumY * sumY;
+
+        int detM = (Ixx * Iyy) - (Ixy * Ixy);
+        int traceM = Ixx + Iyy;
+        float R = detM - HARRIS_K_CONST * (traceM * traceM);
+
+        if (R > threshold) {
+          img->bytes[(i * width) + j] = 0;
+        }
+      }
     }
 }
