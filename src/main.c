@@ -75,6 +75,7 @@ int main(int argc, char *argv[]) {
     const char *operation = argv[1];
     float sigma = 1.0;
     int kernelSize = 3;
+
     char *input_path = NULL;
     char *output_path = NULL;
 
@@ -126,16 +127,14 @@ int main(int argc, char *argv[]) {
     cv_load_image(&img);
 
     if (strcmp(operation, "blur") == 0 || strcmp(operation, "gaussian") == 0) {
-
         CV_INFO("applying gaussian blur of intensity %.2f, kernel size %d", sigma, kernelSize);
         cv_apply_gaussian_blur(&img, sigma, kernelSize);
-
     } else if (strcmp(operation, "bilateral") == 0) {
         CV_INFO("applying bilateral filter of strength %.2f, kernel size %d", sigma, kernelSize);
         cv_apply_bilateral_filter(&img, sigma, kernelSize);
     } else if (strcmp(operation, "harris-corners") == 0) {
-        CV_INFO("extracting corners via Harris corner detection");
-        cv_harris_detect_corners(&img);
+        CV_INFO("extracting corners via Harris corner detection of threshold %f", sigma);
+        cv_harris_detect_corners(&img, sigma);
     } else if (strcmp(operation, "median") == 0) {
         CV_INFO("applying median filter of kernel size %d", kernelSize);
         cv_apply_median_filter(&img, kernelSize);
