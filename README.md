@@ -4,35 +4,39 @@ Deimos is an experimental computer vision library in C
 
 > I am trying to distill my knowledge into [a computer vision guide](https://aadv1k.gitbook.io/cv-guide), which serves as an introductory guide to this field and goes into details about the algorithms implemented below. I welcome any suggestions/critiques, thanks!
 
-- Smoothing
-  - Gaussian blur: higher kernel will lead to more blurring, at the cost of speed
-  - Median filter: higher sigma will give a smoother image 
-  - Bilateral Filter: similar to Median but more performant
-  - Box Filter: higher kernel size will give a more blurred image 
-- Edge detection
-  - Unsharp mask: emphasises the edges, higher sigma will make edges more pronounced at the cost of pixel tearing
-  - Laplacian Filter (Difference of Gaussian): higher the kernel size thicker the edges. 
-    Higher the sigma, less noisier the image.
-  - Sobel operator: creates an image which emphasizes the edge, somewhat similar to Laplacian Filter
-    but computationally better
-- Color
-  - Greyscale: convert image from RGB to 0..255 scale
-- Thresholding
-  - Global: "dumb" thresholding, given a sigma it will set all below it to white otherwise black 
-  - Otsu's Method: compute a threshold dynamically based on the image histogram and then convert
-- Feature extraction
-  - Harris corner detection: the implementation isn't good, I will be continuing to tweak it as
-    learn more about it
-    
+## Features
 
-> **Note**
-> Almost all the functions of this library are arbitary and based on whatever came up on searching "image filtering algoritms"
+- Transformations
+  - Affine
+    - [ ] Rotation
+    - [ ] Scaling
+    - [ ] Shearing
+    - [ ] Translation
+  - Perspective
+    - [ ] Warping
+    - [ ] Skewing
+- Smoothing
+  - [X] Gaussian filter
+  - [X] Median filter
+  - [X] Bilateral filter
+  - [X] Box filter
+- Edge detection
+  - [X] Unsharp mask
+  - [X] Laplacian Filter (Difference of Gaussian)
+  - [X] Sobel operator
+- Color
+  - [X] Greyscale
+- Thresholding
+  - [X] Global
+  - [X] Otsu's Method
+- Feature extraction
+  - [X]  Harris corner detection
 
 ## Build (Make)
 
 ```
-git clone git@github.com:aadv1k/cv.c
-cd cv.c/
+git clone git@github.com:aadv1k/deimos
+cd deimos/
 make
 ```
 
@@ -41,8 +45,8 @@ make
 > If you don't have make on windows, you can instead use the `build.bat`, it gets the job done.
 
 ```console
-git clone git@github.com:aadv1k/cv.c
-cd cv.c/
+git clone git@github.com:aadv1k/deimos
+cd deimos/
 .\build.bat
 ```
 
@@ -60,9 +64,9 @@ cd cv.c/
 ## Usage
 
 ```console
-$ ./cv.exe
+$ ./deimos.exe
 Usage:
-  C:\Users\Aadv1k\Desktop\cv.c\bin\cv.exe <command> <args> input output
+  C:\Users\Aadv1k\Desktop\deimos\bin\deimos.exe <command> <args> input output
 
 Commands:
   Smoothing:
@@ -101,7 +105,7 @@ Options:
 ### Gaussian blur
 
 ```console
-.\bin\cv blur --kernel 9 --sigma 3 .\data\img1.jpg .\img1-gaussian-3-9.png
+.\bin\deimos blur --kernel 9 --sigma 3 .\data\img1.jpg .\img1-gaussian-3-9.png
 ```
 
 | Original Image | Gaussian Blur |
@@ -111,7 +115,7 @@ Options:
 ### Median filter
 
 ```console
-.\bin\cv median --kernel 9 .\data\img1.jpg ..\output.jpg
+.\bin\deimos median --kernel 9 .\data\img1.jpg ..\output.jpg
 ```
 
 | Original Image | Median Filter |
@@ -121,7 +125,7 @@ Options:
 ### Unsharp mask
 
 ```bash
-.\bin\cv sharpen --kernel 9 --sigma 1.2 .\data\img1.jpg ..\output.jpg
+.\bin\deimos sharpen --kernel 9 --sigma 1.2 .\data\img1.jpg ..\output.jpg
 ```
 
 
@@ -132,7 +136,7 @@ Options:
 ### Laplacian filter
 
 ```shell
-.\bin\cv laplacian --kernel 3 --sigma 1.5 .\data\img1.jpg .\output.jpg
+.\bin\deimos laplacian --kernel 3 --sigma 1.5 .\data\img1.jpg .\output.jpg
 ```
 
 | Original Image | Laplacian Filter |
@@ -145,7 +149,7 @@ Options:
 ### Sobel operator
 
 ```shell
-.\bin\cv sobel --sobel-disable .\data\img1.jpg .\output.jpg
+.\bin\deimos sobel --sobel-disable .\data\img1.jpg .\output.jpg
 ```
 
 | Original Image | Laplacian Filter |

@@ -10,4 +10,4 @@ SET SRCS=src/main.c src/image.c src/smoothing/*.c src/edge-detection/*.c src/thr
 
 SET INCLUDE_DIR=src/include
 
-%CC% %CFLAGS% -I %INCLUDE_DIR% %SRCS% -o bin/cv.exe %LIB%
+%CC% %CFLAGS% -I %INCLUDE_DIR% %SRCS% -o bin/deimos.exe %LIB%

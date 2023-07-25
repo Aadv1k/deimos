@@ -15,7 +15,7 @@ SRCS += $(wildcard $(SRC_DIR)/feature-extraction/*.c)
 
 OBJS := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
-EXEC := $(BIN_DIR)/cv
+EXEC := $(BIN_DIR)/deimos
 
 .PHONY: all clean
 
