@@ -94,7 +94,7 @@ Other Commands:
 Options:
   --sigma             Specify the primary modifier for the convolutions.
   --kernel            Define the kernel size for convolutions (if applicable).
-  --sobel-disable     Disable specifying a magnitude for the operator, default to setting gradient magnitude
+  --no-threshold      Disable specifying a threshold for the operator, default to setting gradient magnitude
 ```
 
 ## Gallery
@@ -124,7 +124,7 @@ Options:
 
 ### Unsharp mask
 
-```bash
+```console
 .\bin\deimos sharpen --kernel 9 --sigma 1.2 .\data\img1.jpg ..\output.jpg
 ```
 
@@ -135,7 +135,7 @@ Options:
 
 ### Laplacian filter
 
-```shell
+```console
 .\bin\deimos laplacian --kernel 3 --sigma 1.5 .\data\img1.jpg .\output.jpg
 ```
 
@@ -148,8 +148,8 @@ Options:
 
 ### Sobel operator
 
-```shell
-.\bin\deimos sobel --sobel-disable .\data\img1.jpg .\output.jpg
+```console
+.\bin\deimos sobel --no-threshold .\data\img1.jpg .\output.jpg
 ```
 
 | Original Image | Laplacian Filter |

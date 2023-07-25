@@ -22,15 +22,17 @@
 
 #include "include/logging.h"
 
+#define PROJECT_NAME "deimos"
+
 void usage(const char *caller) {
     printf("Usage:\n");
     printf("  %s <command> <args> input output\n\n", caller);
 
-    // printf("Examples:\n");
-    // printf("  %s blur --sigma 3.4 --kernel 5 input.png output.png\n", caller);
-    // printf("  %s gray input.png output.png\n", caller);
-    // printf("  %s median --kernel 3 input.png output.png\n", caller);
-    // printf("  %s sharpen --sigma 0.6 --kernel 3 input.png output.png\n\n", caller);
+    printf("Examples:\n");
+    printf("  %s blur --sigma 3.4 --kernel 5 input.png output.png\n", PROJECT_NAME);
+    printf("  %s gray input.png output.png\n", PROJECT_NAME);
+    printf("  %s median --kernel 3 input.png output.png\n", PROJECT_NAME);
+    printf("  %s sharpen --sigma 0.6 --kernel 3 input.png output.png\n\n", PROJECT_NAME);
 
     printf("Commands:\n");
     printf("  Smoothing:\n");
@@ -60,7 +62,7 @@ void usage(const char *caller) {
     printf("Options:\n");
     printf("  --sigma             Specify the primary modifier for the convolutions.\n");
     printf("  --kernel            Define the kernel size for convolutions (if applicable).\n");
-    printf("  --sobel-disable     Disable specifying a magnitude for the operator, default to "
+    printf("  --no-threshold      Disable specifying a threshold for the sobel operator, default to "
            "setting gradient magnitude \n");
 }
 
@@ -98,7 +100,7 @@ int main(int argc, char *argv[]) {
                 CV_ERROR("--kernel requires a value.");
                 exit(1);
             }
-        } else if (strcmp(argv[i], "--sobel-disable") == 0) {
+        } else if (strcmp(argv[i], "--no-threshold") == 0) {
             sobelDisable = true;
         } else {
             if (!input_path) {

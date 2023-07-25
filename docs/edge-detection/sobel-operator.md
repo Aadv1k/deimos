@@ -69,7 +69,7 @@ int gradientMagnitude = sqrt((sumX * sumX) + (sumY * sumY));
 
 
 ```bash
-.\bin\cv.exe sobel --sobel-disable .\data\img1.jpg .\docs\.gitbook\assets\sobel.jpg
+.\bin\cv.exe sobel --no-threshold .\data\img1.jpg .\docs\.gitbook\assets\sobel.jpg
 ```
 
 <div>
