@@ -56,7 +56,7 @@ void cv_harris_detect_corners(Image* img, float threshold) {
             int traceM = Ixx + Iyy;
             float R = detM - HARRIS_K_CONST * (traceM * traceM);
 
-            int neighborhood_size = 3; // Adjust this as needed for the size of the neighborhood
+            int neighborhood_size = 3;
 
             if (R < threshold) continue;
 
