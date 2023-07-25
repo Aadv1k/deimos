@@ -20,7 +20,10 @@ Deimos is an experimental computer vision library in C
 - Thresholding
   - Global: "dumb" thresholding, given a sigma it will set all below it to white otherwise black 
   - Otsu's Method: compute a threshold dynamically based on the image histogram and then convert
-
+- Feature extraction
+  - Harris corner detection: the implementation isn't good, I will be continuing to tweak it as
+    learn more about it
+    
 
 > **Note**
 > Almost all the functions of this library are arbitary and based on whatever came up on searching "image filtering algoritms"
@@ -35,19 +38,12 @@ make
 
 ## Build (without make)
 
-> If you don't have make on windows, you can instead use the `build.bat`, it gets the job done. Even
-> I couldn't figure out a non-dodgy way to install make on windows :/
+> If you don't have make on windows, you can instead use the `build.bat`, it gets the job done.
 
 ```console
 git clone git@github.com:aadv1k/cv.c
 cd cv.c/
 .\build.bat
-```
-
-## Build (unix)
-
-```console
-./build.sh
 ```
 
 ## Examples
@@ -142,5 +138,18 @@ Options:
 | Original Image | Laplacian Filter |
 | --- | --- |
 | ![Original Image](./docs/.gitbook/assets/img1.jpg) | ![Laplacian Filter](./docs/.gitbook/assets/laplacian-1-3.jpg) |
+
+</div>
+
+
+### Sobel operator
+
+```shell
+.\bin\cv sobel --sobel-disable .\data\img1.jpg .\output.jpg
+```
+
+| Original Image | Laplacian Filter |
+| --- | --- |
+| ![Original Image](./docs/.gitbook/assets/img1.jpg) | ![Laplacian Filter](./docs/.gitbook/assets/sobel.jpg) |
 
 </div>
