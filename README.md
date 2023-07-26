@@ -10,11 +10,10 @@ Deimos is an experimental computer vision library in C
   - Affine
     - [X] Rotation
     - [X] Scaling
-    - [ ] Shearing
+    - [X] Shearing
     - [ ] Translation
   - Perspective
     - [ ] Warping
-    - [ ] Skewing
 - Smoothing
   - [X] Gaussian filter
   - [X] Median filter
@@ -95,6 +94,7 @@ Commands:
   Transformations:
     rotate            Rotate the image by `sigma` deg.
     scale             Scale the image by sigma factor.
+    shear, skew       Shear or skew the image at both axis by sigma factor.
 
 Other Commands:
     gray              Convert image to grayscale.
