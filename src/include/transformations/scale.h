@@ -3,6 +3,6 @@
 
 #include "../image.h"
 
-void deimos_apply_scaling(Image * img, float factorX, float factorY);
+void deimos_apply_scaling(Image * img, int factorX, int factorY);
 
 #endif

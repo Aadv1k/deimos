@@ -175,8 +175,14 @@ int main(int argc, char *argv[]) {
       CV_INFO("Rotating the image by %d deg", (int)sigma);
       deimos_apply_rotation(&img, (RotationDegree)sigma);
     } else if (strcmp(operation, "scale") == 0) {
-      CV_INFO("Scaling the image by a factor of %.2f", sigma);
-      deimos_apply_scaling(&img, sigma, sigma);
+
+      if (sigma <= 0) {
+        CV_ERROR("Scaling factor cannot be less than or equal to zero");
+        exit(1);
+      }
+
+      CV_INFO("Scaling the image down by a factor of %d", (int)sigma);
+      deimos_apply_scaling(&img, (int)sigma, (int)sigma);
     }
     else {
         usage(program);
