@@ -21,6 +21,7 @@
 #include "include/feature-extraction/harris.h"
 
 #include "include/transformations/rotate.h"
+#include "include/transformations/scale.h"
 
 #include "include/logging.h"
 
@@ -57,7 +58,8 @@ void usage(const char *caller) {
     printf("    harris-corners    Detect corners within the image via Harris corner detection.\n\n");
 
     printf("  Transformations:\n");
-    printf("    rotate            Rotate the image by `sigma` deg.\n\n");
+    printf("    rotate            Rotate the image by `sigma` deg.\n");
+    printf("    scale             Rotate the image by `sigma*sigma` factor, n\n\n");
 
     printf("Other Commands:\n");
     printf("    gray              Convert image to grayscale.\n");
@@ -171,10 +173,12 @@ int main(int argc, char *argv[]) {
         exit(1);
       }
       CV_INFO("Rotating the image by %d deg", (int)sigma);
-
       deimos_apply_rotation(&img, (RotationDegree)sigma);
-
-      } else {
+    } else if (strcmp(operation, "scale") == 0) {
+      CV_INFO("Scaling the image by a factor of %.2f", sigma);
+      deimos_apply_scaling(&img, sigma, sigma);
+    }
+    else {
         usage(program);
         exit(1);
     }
