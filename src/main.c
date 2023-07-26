@@ -22,6 +22,7 @@
 
 #include "include/transformations/rotate.h"
 #include "include/transformations/scale.h"
+#include "include/transformations/shear.h"
 
 #include "include/logging.h"
 
@@ -60,6 +61,7 @@ void usage(const char *caller) {
     printf("  Transformations:\n");
     printf("    rotate            Rotate the image by `sigma` deg.\n");
     printf("    scale             Scale the image by sigma factor.\n\n");
+    printf("    shear             Shear or skew the image at both axis by sigma factor.\n\n");
 
     printf("Other Commands:\n");
     printf("    gray              Convert image to grayscale.\n");
@@ -175,7 +177,6 @@ int main(int argc, char *argv[]) {
       CV_INFO("Rotating the image by %d deg", (int)sigma);
       deimos_apply_rotation(&img, (RotationDegree)sigma);
     } else if (strcmp(operation, "scale") == 0) {
-
       if (sigma <= 0) {
         CV_ERROR("Scaling factor cannot be less than or equal to zero");
         exit(1);
@@ -183,6 +184,9 @@ int main(int argc, char *argv[]) {
 
       CV_INFO("Scaling the image down by a factor of %d", (int)sigma);
       deimos_apply_scaling(&img, (int)sigma, (int)sigma);
+    } else if (strcmp(operation, "shear") == 0 || strcmp(operation, "skew") == 0) {
+      CV_INFO("Shearing the image by a factor of %d", (int)sigma);
+      deimos_apply_vertical_shearing(&img, (int)sigma);
     }
     else {
         usage(program);
