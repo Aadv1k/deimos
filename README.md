@@ -9,7 +9,7 @@ Deimos is an experimental computer vision library in C
 - Transformations
   - Affine
     - [X] Rotation
-    - [ ] Scaling
+    - [X] Scaling
     - [ ] Shearing
     - [ ] Translation
   - Perspective
@@ -64,9 +64,14 @@ cd deimos/
 ## Usage
 
 ```console
-$ ./deimos.exe
 Usage:
-  C:\Users\Aadv1k\Desktop\deimos\bin\deimos.exe <command> <args> input output
+  C:\Users\Aadv1k\Documents\github\deimos\bin\deimos.exe <command> <args> input output
+
+Examples:
+  deimos blur --sigma 3.4 --kernel 5 input.png output.png
+  deimos gray input.png output.png
+  deimos median --kernel 3 input.png output.png
+  deimos sharpen --sigma 0.6 --kernel 3 input.png output.png
 
 Commands:
   Smoothing:
@@ -87,6 +92,10 @@ Commands:
   Feature Extraction:
     harris-corners    Detect corners within the image via Harris corner detection.
 
+  Transformations:
+    rotate            Rotate the image by `sigma` deg.
+    scale             Scale the image by sigma factor.
+
 Other Commands:
     gray              Convert image to grayscale.
     help              Print this help message.
@@ -94,7 +103,7 @@ Other Commands:
 Options:
   --sigma             Specify the primary modifier for the convolutions.
   --kernel            Define the kernel size for convolutions (if applicable).
-  --no-threshold      Disable specifying a threshold for the operator, default to setting gradient magnitude
+  --no-threshold      Disable specifying a threshold for the sobel operator, default to setting gradient magnitude 
 ```
 
 ## Gallery

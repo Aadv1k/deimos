@@ -59,7 +59,7 @@ void usage(const char *caller) {
 
     printf("  Transformations:\n");
     printf("    rotate            Rotate the image by `sigma` deg.\n");
-    printf("    scale             Rotate the image by `sigma*sigma` factor, n\n\n");
+    printf("    scale             Scale the image by sigma factor.\n\n");
 
     printf("Other Commands:\n");
     printf("    gray              Convert image to grayscale.\n");
