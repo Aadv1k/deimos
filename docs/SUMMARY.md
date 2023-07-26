@@ -12,3 +12,4 @@
   * [Laplacian filter](edge-detection/laplacian-filter.md)
   * [Sobel operator](edge-detection/sobel-operator.md)
 * [Thresholding](thresholding.md)
+* [Affine Transformations][affine-transformations/README.md]
