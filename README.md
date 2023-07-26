@@ -8,7 +8,7 @@ Deimos is an experimental computer vision library in C
 
 - Transformations
   - Affine
-    - [ ] Rotation
+    - [X] Rotation
     - [ ] Scaling
     - [ ] Shearing
     - [ ] Translation
@@ -146,13 +146,25 @@ Options:
 </div>
 
 
+### Otsu's Threshold
+
+```console
+.\bin\deimos sobel otsu-threshold .\data\img1.jpg .\output.jpg
+```
+
+| Original Image | Otsu's threshold |
+| --- | --- |
+| ![Original Image](./docs/.gitbook/assets/img1.jpg) | ![Laplacian Filter](./docs/.gitbook/assets/otsu-threshold.jpg) |
+
+</div>
+
 ### Sobel operator
 
 ```console
 .\bin\deimos sobel --no-threshold .\data\img1.jpg .\output.jpg
 ```
 
-| Original Image | Laplacian Filter |
+| Original Image | Sobel Operator |
 | --- | --- |
 | ![Original Image](./docs/.gitbook/assets/img1.jpg) | ![Laplacian Filter](./docs/.gitbook/assets/sobel.jpg) |
 
