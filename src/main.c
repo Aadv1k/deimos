@@ -177,12 +177,21 @@ int main(int argc, char *argv[]) {
       CV_INFO("Rotating the image by %d deg", (int)sigma);
       deimos_apply_rotation(&img, (RotationDegree)sigma);
     } else if (strcmp(operation, "scale") == 0) {
-      if (sigma <= 0) {
-        CV_ERROR("Scaling factor cannot be less than or equal to zero");
+      if (sigma == 0) {
+        CV_ERROR("Scaling factor cannot be zero");
         exit(1);
       }
-      CV_INFO("Scaling the image down by a factor of %d", (int)sigma);
-      deimos_apply_scaling(&img, (int)sigma, (int)sigma);
+
+      int factor = sigma;
+
+      if (sigma < 0) {
+        CV_INFO("Scaling the image down by factor of %d", factor);
+        deimos_apply_down_scaling(&img, abs(factor), abs(factor));
+      } else {
+        CV_INFO("Scaling the image up by factor of %d", factor);
+        deimos_apply_up_scaling(&img, factor, factor);
+      }
+
     } else if (strcmp(operation, "shear") == 0 || strcmp(operation, "skew") == 0) {
       CV_INFO("Shearing the image by a factor of %d", (int)sigma);
       deimos_apply_vertical_shearing(&img, (int)sigma);
