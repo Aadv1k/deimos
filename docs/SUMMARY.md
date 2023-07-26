@@ -13,3 +13,4 @@
   * [Sobel operator](edge-detection/sobel-operator.md)
 * [Thresholding](thresholding.md)
 * [Affine Transformations](affine-transformations/README.md)
+  * [Scaling](affine-transformations/scaling.md)

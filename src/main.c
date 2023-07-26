@@ -181,7 +181,6 @@ int main(int argc, char *argv[]) {
         CV_ERROR("Scaling factor cannot be less than or equal to zero");
         exit(1);
       }
-
       CV_INFO("Scaling the image down by a factor of %d", (int)sigma);
       deimos_apply_scaling(&img, (int)sigma, (int)sigma);
     } else if (strcmp(operation, "shear") == 0 || strcmp(operation, "skew") == 0) {
