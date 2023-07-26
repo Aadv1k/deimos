@@ -20,6 +20,8 @@
 
 #include "include/feature-extraction/harris.h"
 
+#include "include/transformations/rotate.h"
+
 #include "include/logging.h"
 
 #define PROJECT_NAME "deimos"
@@ -52,8 +54,10 @@ void usage(const char *caller) {
     printf("    otsu-threshold    Apply Otsu's threshold filter over the image.\n\n");
 
     printf("  Feature Extraction:\n");
-    printf(
-        "    harris-corners    Detect corners within the image via Harris corner detection.\n\n");
+    printf("    harris-corners    Detect corners within the image via Harris corner detection.\n\n");
+
+    printf("  Transformations:\n");
+    printf("    rotate            Rotate the image by `sigma` deg.\n\n");
 
     printf("Other Commands:\n");
     printf("    gray              Convert image to grayscale.\n");
@@ -161,7 +165,16 @@ int main(int argc, char *argv[]) {
     } else if (strcmp(operation, "otsu-threshold") == 0) {
         CV_INFO("applying Otsu threshold filter");
         cv_apply_otsu_threshold(&img);
-    } else {
+    } else if (strcmp(operation, "rotate") == 0) {
+      if (sigma != 90 && sigma != 180) {
+        CV_ERROR("The rotation degree must be 90deg or 180deg");
+        exit(1);
+      }
+      CV_INFO("Rotating the image by %d deg", (int)sigma);
+
+      deimos_apply_rotation(&img, (RotationDegree)sigma);
+
+      } else {
         usage(program);
         exit(1);
     }
