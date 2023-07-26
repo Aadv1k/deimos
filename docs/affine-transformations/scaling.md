@@ -1,10 +1,9 @@
 # Scaling 
 
-Often times in digitial image processing there is a need to reduce the size of the image on the disc. The simplest option offered to us is to literally reduce the size of the image, this can be achieved via **scaling**.
+Digital image processing often involves the need to reduce the size of images stored on disk, and there are two primary methods for achieving this: **scaling** and image compression. Scaling is a straightforward technique that directly reduces the image's dimensions. On the other hand, image compression utilizes advanced algorithms to decrease the space occupied by the image while preserving most of its quality. However, the intricacies of these algorithms are beyond the scope of our current discussion
 
-Although there is also image compression, which can reduce the space occupied by the image on the disc without reducing it's literal size, this process is rather complex and beyond the scope of what we are doing.
+To scale an image down, we take X and Y scaling factors, and using their quotients against the width and height, we derive the new "reduced" dimensions. By looping through these dimensions, we extract corresponding values from the full-size image, multiplying the pixel coordinates by the scaling factors. Let's take a closer look.
 
-To scale an image down we accept a X and Y scaling factor we use the quotient of these values against the width and height to derive the new "reduced" dimensions. Looping through which, we extrract the corresponding value from the full-size image by multiplying the pixel co-ordinates by the factors. Let's take a look
 
 ## Implementation
 
@@ -33,13 +32,17 @@ void deimos_apply_scaling(Image * img, int factorX, int factorY) {
 }
 ```
 
-The logic is quite simple, as I said earlier, we loop through each pixel, and to extract the corresponding pixel within the full-size image we multiply the current cordinatees with the factor to give us values that roughly make up the image. the higher the factors, the more "gap" there will we when we are picking out pixels from thee original image, loosing more details as wee go.
+In the image scaling process, we iterate through each pixel of the smaller image. To extract the pixel value from the original image, we multiply the coordinates of the new image pixel by the scaling factor. This approach works because it essentially involves 'skipping' pixels in between, resulting in a shorter image at the expense of losing some details. If you think about it, a scaling factor of 2 means we are skipping every other pixel in the image.
 
 ## Result
 
 ```bash
 .\bin\deimos scale --sigma 2 .\data\img1.jpg .\docs\.gitbook\assets\scale-3.jpg
 ```
+
+> **NOTE:**
+> the `sigma` above is just the scaling factor 
+
 
 <div>
 
