@@ -60,7 +60,7 @@ void usage(const char *caller) {
 
     printf("  Transformations:\n");
     printf("    rotate            Rotate the image by `sigma` deg.\n");
-    printf("    scale             Scale the image by sigma factor.\n");
+    printf("    scale             Scale the image by sigma factor; if sigma is negative then downscale else upscale\n");
     printf("    shear             Shear or skew the image at both axis by sigma factor.\n\n");
 
     printf("Other Commands:\n");
