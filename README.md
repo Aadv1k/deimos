@@ -6,14 +6,10 @@ Deimos is an experimental computer vision library in C
 
 ## Features
 
-- Transformations
-  - Affine
-    - [X] Rotation
-    - [X] Scaling
-    - [X] Shearing
-    - [ ] Translation
-  - Perspective
-    - [ ] Warping
+- Geometric Transformations
+  - [X] Rotation
+  - [X] Scaling
+  - [X] Shearing/Warping
 - Smoothing
   - [X] Gaussian filter
   - [X] Median filter
