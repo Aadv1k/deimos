@@ -3,6 +3,9 @@
 
 #include "../image.h"
 
+
+void rotationSwap(unsigned char* x, unsigned char* y);
+
 typedef enum {
   DEG_90 = 90,
   MINUS_DEG_90 = -90,

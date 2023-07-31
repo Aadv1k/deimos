@@ -91,6 +91,8 @@ Commands:
     rotate            Rotate the image by `sigma` deg.
     scale             Scale the image by sigma factor; if sigma is negative then downscale else upscale
     shear             Shear or skew the image at both axis by sigma factor.
+    flipX             Horizontally mirror the image
+    flipY             Vertically mirror the image
 
 Other Commands:
     gray              Convert image to grayscale.

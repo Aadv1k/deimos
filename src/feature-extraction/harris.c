@@ -8,42 +8,9 @@
 #include <stdio.h>
 
 #ifndef M_PI
-#define M_PI 3.14159265358979323846
+    #define M_PI 3.14159265358979323846
 #endif
 
-void draw_circle(Image* img, int center_x, int center_y, int radius, unsigned char color) {
-    int x = radius - 1;
-    int y = 0;
-    int dx = 1;
-    int dy = 1;
-    int err = dx - (radius << 1);
-
-    while (x >= y) {
-        img->bytes[(center_x + x) * img->width + center_y + y] = color;
-        img->bytes[(center_x + y) * img->width + center_y + x] = color;
-        img->bytes[(center_x - y) * img->width + center_y + x] = color;
-        img->bytes[(center_x - x) * img->width + center_y + y] = color;
-        img->bytes[(center_x - x) * img->width + center_y - y] = color;
-        img->bytes[(center_x - y) * img->width + center_y - x] = color;
-        img->bytes[(center_x + y) * img->width + center_y - x] = color;
-        img->bytes[(center_x + x) * img->width + center_y - y] = color;
-
-        if (err <= 0) {
-            y++;
-            err += dy;
-            dy += 2;
-        }
-        if (err > 0) {
-            x--;
-            dx += 2;
-            err += dx - (radius << 1);
-        }
-    }
-}
-
-
-#define SOBEL_K_SIZE 3
-#define HARRIS_K_CONST 0.04
 
 static int kernelX[SOBEL_K_SIZE][SOBEL_K_SIZE] = {
     {-1, 0, 1},
@@ -108,9 +75,6 @@ void cv_harris_detect_corners(Image* img, float threshold) {
             if (max_in_neighborhood && (angle_degrees < 45.0 || angle_degrees > 135.0)) {
                 img->bytes[i * width + j] = 0;
             }
-
-            //else {img->bytes[i * width + j] = 0;}
-
         }
     }
 }
