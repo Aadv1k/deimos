@@ -21,6 +21,7 @@ Deimos is an experimental computer vision library in C
   - [X] Sobel operator
 - Color
   - [X] Greyscale
+  - Contrast
 - Thresholding
   - [X] Global
   - [X] Otsu's Method
@@ -60,7 +61,7 @@ cd deimos/
 
 ```console
 Usage:
-  C:\Users\Aadv1k\Documents\github\deimos\bin\deimos.exe <command> <args> input output
+  C:\Users\Aadv1k\Desktop\deimos\bin\deimos.exe <command> <args> input output
 
 Examples:
   deimos blur --sigma 3.4 --kernel 5 input.png output.png
@@ -94,8 +95,11 @@ Commands:
     flipX             Horizontally mirror the image
     flipY             Vertically mirror the image
 
-Other Commands:
+Color enhancements:
     gray              Convert image to grayscale.
+    contrast          Increase/decrease contrast based on `sigma`
+
+Other Commands:
     help              Print this help message.
 
 Options:

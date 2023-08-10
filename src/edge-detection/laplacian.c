@@ -1,6 +1,7 @@
 #include "../include/edge-detection/laplacian.h"
 
 #include "../include/smoothing/blur.h"
+#include "../include/smoothing/box.h"
 
 #include <assert.h>
 #include <math.h>
@@ -12,10 +13,11 @@ void cv_apply_laplacian_filter(Image *img, float sigma, int kernSize) {
     int height = img->height;
     int channels = img->channels;
 
-    float sigma1 = sigma;
     int kernSize1 = kernSize * 1.5 + 1;
 
-    cv_apply_gaussian_blur(img, sigma1, kernSize1);
+    (void)sigma;
+    //cv_apply_gaussian_blur(img, sigma, kernSize1);
+    cv_apply_box_filter(img, kernSize1);
 
     Image copiedImage;
     copiedImage.width = width;
@@ -26,7 +28,8 @@ void cv_apply_laplacian_filter(Image *img, float sigma, int kernSize) {
     copiedImage.bytes = malloc(dataSize);
     memcpy(copiedImage.bytes, img->bytes, dataSize);
 
-    cv_apply_gaussian_blur(&copiedImage, sigma, kernSize);
+    //cv_apply_gaussian_blur(&copiedImage, sigma, kernSize);
+    cv_apply_box_filter(&copiedImage, kernSize);
 
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
