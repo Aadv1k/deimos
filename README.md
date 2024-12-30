@@ -52,16 +52,16 @@ cd deimos/
 > The filters are un-optimized, they work best on smaller images
 
 ```console
-.\cv gray ..\data\img1.jpg .\output.png
-.\cv sharpen --sigma 3 ..\data\img1.jpg .\output.png
-.\cv blur --kernel 9 --sigma 5 ..\data\img1.jpg .\output.png
+./cv gray ../data/img1.jpg ./output.png
+./cv sharpen --sigma 3 ../data/img1.jpg ./output.png
+./cv blur --kernel 9 --sigma 5 ../data/img1.jpg ./output.png
 ```
 
 ## Usage
 
 ```console
 Usage:
-  C:\Users\Aadv1k\Desktop\deimos\bin\deimos.exe <command> <args> input output
+  ./bin/deimos <command> <args> input output
 
 Examples:
   deimos blur --sigma 3.4 --kernel 5 input.png output.png
@@ -116,7 +116,7 @@ Options:
 ### Gaussian blur
 
 ```console
-.\bin\deimos blur --kernel 9 --sigma 3 .\data\img1.jpg .\img1-gaussian-3-9.png
+./bin/deimos blur --kernel 9 --sigma 3 ./data/img1.jpg ./img1-gaussian-3-9.png
 ```
 
 | Original Image | Gaussian Blur |
@@ -126,7 +126,7 @@ Options:
 ### Median filter
 
 ```console
-.\bin\deimos median --kernel 9 .\data\img1.jpg ..\output.jpg
+./bin/deimos median --kernel 9 ./data/img1.jpg ../output.jpg
 ```
 
 | Original Image | Median Filter |
@@ -136,7 +136,7 @@ Options:
 ### Unsharp mask
 
 ```console
-.\bin\deimos sharpen --kernel 9 --sigma 1.2 .\data\img1.jpg ..\output.jpg
+./bin/deimos sharpen --kernel 9 --sigma 1.2 ./data/img1.jpg ../output.jpg
 ```
 
 
@@ -147,7 +147,7 @@ Options:
 ### Laplacian filter
 
 ```console
-.\bin\deimos laplacian --kernel 3 --sigma 1.5 .\data\img1.jpg .\output.jpg
+./bin/deimos laplacian --kernel 3 --sigma 1.5 ./data/img1.jpg ./output.jpg
 ```
 
 | Original Image | Laplacian Filter |
@@ -160,7 +160,7 @@ Options:
 ### Otsu's Threshold
 
 ```console
-.\bin\deimos sobel otsu-threshold .\data\img1.jpg .\output.jpg
+./bin/deimos otsu-threshold ./data/img1.jpg ./output.jpg
 ```
 
 | Original Image | Otsu's threshold |
@@ -172,7 +172,7 @@ Options:
 ### Sobel operator
 
 ```console
-.\bin\deimos sobel --no-threshold .\data\img1.jpg .\output.jpg
+./bin/deimos sobel --no-threshold ./data/img1.jpg ./output.jpg
 ```
 
 | Original Image | Sobel Operator |
@@ -180,3 +180,9 @@ Options:
 | ![Original Image](./docs/.gitbook/assets/img1.jpg) | ![Laplacian Filter](./docs/.gitbook/assets/sobel.jpg) |
 
 </div>
+
+
+## Credits 
+
+Thanks to [Adrian Sieber](https://github.com/ad-si) for pointing out a fault in calculating Otsu's threshold. (See #1)
+
