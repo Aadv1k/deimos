@@ -34,7 +34,7 @@ void cv_apply_otsu_threshold(Image *img) {
         cumulativeSum += normHistogram[i];
         cumulativeMean += i * normHistogram[i];
 
-        globalMean = cumulativeMean;
+        globalMean += i * normHistogram[i];
 
         float mean1 = cumulativeMean / cumulativeSum,
               mean2 = (globalMean - cumulativeMean) / (1 - cumulativeSum);
